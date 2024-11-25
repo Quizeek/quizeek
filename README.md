@@ -1,6 +1,6 @@
-<div style="text-align: center;">
+<p align="center">
   <img src="branding/logo-circle.svg" width="250" />
-</div>
+</p>
 
 # Quizee
 
