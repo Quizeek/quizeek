@@ -2,7 +2,7 @@
   <img src="branding/logo-circle.svg" width="250" />
 </p>
 
-# Quizee
+# Quizeek
 
 The app lets users create customized quizzes with various question formats and personalized settings like time limits and scoring rules. Any user can then find and take these quizzes.
 
