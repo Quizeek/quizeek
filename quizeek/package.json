@@ -6,7 +6,6 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "test": "eslint --help",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "ui:add": "npx shadcn@latest add --src-dir --path src/components/ui"
   },
