@@ -46,7 +46,7 @@ entity quiz_attempt {
     ---
     *user_id: text <<FK>>
     *quiz_id: text <<FK>>
-    *date: text
+    *timestamp: text
     score: integer
 }
 
