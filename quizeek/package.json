@@ -8,9 +8,12 @@
     "start": "next start",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "ui:add": "npx shadcn@latest add --src-dir --path src/components/ui",
-    "db:start": "turso dev --db-file quizeek-dev.db",
-    "db:migrate": "npx drizzle-kit push",
-    "db:studio": "npx drizzle-kit studio"
+    "db:start:dev": "dotenv -e .env.development -- turso dev --db-file quizeek-dev.db",
+    "db:push:dev": "dotenv -e .env.development -- npx drizzle-kit push",
+    "db:studio:dev": "dotenv -e .env.development -- npx drizzle-kit studio",
+    "db:start:prod": "dotenv -e .env.production -- turso dev --db-file quizeek-dev.db",
+    "db:push:prod": "dotenv -e .env.production -- npx drizzle-kit push",
+    "db:studio:prod": "dotenv -e .env.production -- npx drizzle-kit studio"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
@@ -34,6 +37,7 @@
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
+    "dotenv-cli": "^7.4.4",
     "drizzle-kit": "^0.29.0",
     "eslint": "^9.16.0",
     "eslint-config-next": "^15.0.3",
