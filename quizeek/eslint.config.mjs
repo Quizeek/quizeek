@@ -80,7 +80,7 @@ export default [
         {
           classPropertiesAllowed: false,
           disallowPrototype: false,
-          returnStyle: 'explicit',
+          returnStyle: 'as-needed',
           singleReturnOnly: false,
         },
       ],

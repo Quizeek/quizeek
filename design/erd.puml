@@ -1,0 +1,72 @@
+@startuml quizeek
+skinparam Linetype ortho
+skinparam Nodesep 250
+
+entity user {
+    *id: text <<PK>>
+    ---
+    TODO
+}
+
+entity quiz {
+    *id: text <<PK>>
+    ---
+    *created_by: text <<FK>>
+    *title: text
+    description: text
+    image_url: text
+    time_limit_seconds: integer
+}
+
+entity question {
+    *id: text <<PK>>
+    ---
+    *quiz_id: text <<FK>>
+    *number: integer
+    *text: text
+    *type: question_type
+}
+
+enum question_type {
+    single_choice
+    multiple_choice
+}
+
+entity choice {
+    *id: text <<PK>>
+    ---
+    *question_id: text <<FK>>
+    *is_correct: integer
+    *points: integer
+    *text: text
+}
+
+entity quiz_attempt {
+    *id: text <<PK>>
+    ---
+    *user_id: text <<FK>>
+    *quiz_id: text <<FK>>
+    *timestamp: text
+    score: integer
+}
+
+entity answer {
+    *id: text <<PK>>
+    ---
+    *quiz_attempt_id: text <<FK>>
+    *choice_id: text <<FK>>
+}
+
+quiz }o-down-|| user
+quiz ||-left-|{ question
+quiz ||-right-o{ quiz_attempt
+
+question ||-up-|{ choice
+question .down. question_type
+
+quiz_attempt }o-down-|| user
+quiz_attempt ||-up-o{ answer
+
+answer }o-left-|| choice
+
+@enduml
