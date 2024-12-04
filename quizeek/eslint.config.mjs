@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import perfectionist from 'eslint-plugin-perfectionist';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,6 +43,7 @@ export default [
       'unused-imports': unusedImports,
       prettier,
       'prefer-arrow-functions': preferArrowFunctions,
+      perfectionist,
     },
 
     languageOptions: {
@@ -80,13 +82,53 @@ export default [
         {
           classPropertiesAllowed: false,
           disallowPrototype: false,
-          returnStyle: 'as-needed',
+          returnStyle: 'unchanged',
           singleReturnOnly: false,
         },
       ],
 
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-non-null-assertion': 'error',
+
+      'perfectionist/sort-imports': [
+        'error',
+        {
+          type: 'alphabetical',
+          order: 'asc',
+          ignoreCase: true,
+          specialCharacters: 'keep',
+          internalPattern: ['^~/.+'],
+          partitionByComment: false,
+          partitionByNewLine: false,
+          newlinesBetween: 'always',
+          maxLineLength: undefined,
+          groups: [
+            'type',
+            ['builtin', 'external'],
+            'internal-type',
+            'internal',
+            ['parent-type', 'sibling-type', 'index-type'],
+            ['parent', 'sibling', 'index'],
+            'object',
+            'unknown',
+          ],
+          customGroups: { type: {}, value: {} },
+          environment: 'node',
+        },
+      ],
+      'perfectionist/sort-named-imports': [
+        'error',
+        {
+          type: 'alphabetical',
+          order: 'asc',
+          ignoreAlias: false,
+          ignoreCase: true,
+          specialCharacters: 'keep',
+          groupKind: 'mixed',
+          partitionByNewLine: false,
+          partitionByComment: false,
+        },
+      ],
     },
   },
 ];

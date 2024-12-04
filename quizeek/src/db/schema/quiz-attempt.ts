@@ -1,9 +1,10 @@
-import { text, sqliteTable, integer } from 'drizzle-orm/sqlite-core';
 import { randomUUID } from 'crypto';
 import { relations, sql } from 'drizzle-orm';
-import { users } from './user';
-import { quizes } from './quiz';
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+
 import { answers } from './answer';
+import { quizes } from './quiz';
+import { users } from './user';
 
 export const quizAttempts = sqliteTable('quiz_attempt', {
   id: text('id')
