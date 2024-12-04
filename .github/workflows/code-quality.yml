@@ -12,13 +12,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        working-directory: ./quizeek
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./quizeek
 
       - name: Run Lint
         run: npm run lint
+        working-directory: ./quizeek
         continue-on-error: true
 
       - name: Run Build
         run: npm run build
+        working-directory: ./quizeek
