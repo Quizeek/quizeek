@@ -13,19 +13,19 @@ $ pnpm ui:add <component>
 Dev DB can be started like so:
 
 ```
-$ pnpm run db:start
+$ pnpm run db:start:dev
 ```
 
-New migration can be created like so:
+Dev DB can be synchronized with current schema like so:
 
 ```
-$ pnpm run db:migrate
+$ pnpm run db:push:dev
 ```
 
 DB studio can be launched like so:
 
 ```
-$ pnpm run db:studio
+$ pnpm run db:studio:dev
 ```
 
 ## Dev .env example
