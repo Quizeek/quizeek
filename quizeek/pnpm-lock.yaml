@@ -23,6 +23,9 @@ importers:
       drizzle-orm:
         specifier: ^0.37.0
         version: 0.37.0(@libsql/client@0.14.0)(@types/react@18.3.12)(react@19.0.0-rc-66855b96-20241106)
+      eslint-plugin-perfectionist:
+        specifier: ^4.2.0
+        version: 4.2.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       lucide-react:
         specifier: ^0.462.0
         version: 0.462.0(react@19.0.0-rc-66855b96-20241106)
@@ -1326,6 +1329,12 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9
 
+  eslint-plugin-perfectionist@4.2.0:
+    resolution: {integrity: sha512-hEMFx5xfSc/0OLZXJhSaLUKkFxATuRf4yL2iVfxEcxkkb17DfoLZY9eH960dPSw5uB7o+4avqP3rtkNp1Vwo7w==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      eslint: '>=8.0.0'
+
   eslint-plugin-prefer-arrow-functions@3.4.1:
     resolution: {integrity: sha512-c8NP0E8xpkRqDq2eDSRr+wA4jwkwOEVNnZx4YY3O0V9M7OhtKdQIj5zmzIXwu+ueURmbwYrnz65sEoLLoIVZpg==}
     engines: {node: '>=18.0.0'}
@@ -1812,6 +1821,10 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  natural-orderby@5.0.0:
+    resolution: {integrity: sha512-kKHJhxwpR/Okycz4HhQKKlhWe4ASEfPgkSWNmKFHd7+ezuQlxkA5cM3+XkBPvm1gmHen3w53qsYAv+8GwRrBlg==}
+    engines: {node: '>=18'}
 
   next@15.0.3:
     resolution: {integrity: sha512-ontCbCRKJUIoivAdGB34yCaOcPgYXr9AAkV/IwqFfWWTXEPUgLYkSkqBhIk9KK7gGmgjc64B+RdoeIDM13Irnw==}
@@ -3450,6 +3463,16 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.1
 
+  eslint-plugin-perfectionist@4.2.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2):
+    dependencies:
+      '@typescript-eslint/types': 8.17.0
+      '@typescript-eslint/utils': 8.17.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      eslint: 9.16.0(jiti@1.21.6)
+      natural-orderby: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
   eslint-plugin-prefer-arrow-functions@3.4.1(eslint@9.16.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.16.0(jiti@1.21.6)
@@ -3964,6 +3987,8 @@ snapshots:
   nanoid@3.3.8: {}
 
   natural-compare@1.4.0: {}
+
+  natural-orderby@5.0.0: {}
 
   next@15.0.3(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106):
     dependencies:

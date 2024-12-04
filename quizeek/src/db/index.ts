@@ -1,10 +1,11 @@
-import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
+import { drizzle } from 'drizzle-orm/libsql';
+
 import { answers, answersRelations } from './schema/answer';
 import { choices, choicesRelations } from './schema/choice';
 import { questions, questionsRelations } from './schema/question';
-import { quizAttempts, quizAttemptsRelations } from './schema/quiz-attempt';
 import { quizes, quizesRelations } from './schema/quiz';
+import { quizAttempts, quizAttemptsRelations } from './schema/quiz-attempt';
 import { users, usersRelations } from './schema/user';
 
 const client = createClient({
