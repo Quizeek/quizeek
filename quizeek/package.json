@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "ui:add": "npx shadcn@latest add --src-dir --path src/components/ui",
+    "db:start": "turso dev --db-file quizeek-dev.db",
     "db:migrate": "npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio"
   },

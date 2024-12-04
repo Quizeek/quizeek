@@ -13,8 +13,7 @@ $ pnpm ui:add <component>
 Dev DB can be started like so:
 
 ```
-$ wsl
-$ turso dev --db-file quizeek-dev.db
+$ pnpm run db:start
 ```
 
 New migration can be created like so:
