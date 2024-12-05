@@ -11,7 +11,6 @@
     "db:start:dev": "dotenv -e .env.development -- turso dev --db-file quizeek-dev.db",
     "db:push:dev": "dotenv -e .env.development -- npx drizzle-kit push",
     "db:studio:dev": "dotenv -e .env.development -- npx drizzle-kit studio",
-    "db:start:prod": "dotenv -e .env.production -- turso dev --db-file quizeek-dev.db",
     "db:push:prod": "dotenv -e .env.production -- npx drizzle-kit push",
     "db:studio:prod": "dotenv -e .env.production -- npx drizzle-kit studio"
   },
