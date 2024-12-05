@@ -57,6 +57,8 @@ export default [
     },
 
     rules: {
+      'no-console': 'warn',
+
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/interface-name-prefix': 'off',
       '@typescript-eslint/no-floating-promises': 'error',
