@@ -38,3 +38,21 @@ AUTH_TOKEN=DOES_NOT_MATTER
 ## Design
 
 ![erd](../design/erd.png)
+
+## Obtaining auth session
+Every route starting with `/auth` will requires authorization and so checking if user is logged in is not required. `authorized` callback is implemented in [src/auth.ts](./src/auth.ts).
+
+### Server
+```ts
+const session = await auth();
+
+// checking if user is logged in
+if (!session?.user) {
+    ...
+}
+```
+
+### Client
+```ts
+const session = useSession();
+```

@@ -1,6 +1,5 @@
 import type { AdapterAccountType } from 'next-auth/adapters';
 
-import { randomUUID } from 'crypto';
 import { relations } from 'drizzle-orm';
 import {
   integer,
@@ -8,21 +7,18 @@ import {
   sqliteTable,
   text,
 } from 'drizzle-orm/sqlite-core';
+import { v7 as uuid } from 'uuid';
 
 import { quizes } from './quiz';
 import { quizAttempts } from './quiz-attempt';
 
 export const users = sqliteTable('user', {
-  id: text('id')
-    .primaryKey()
-    .$defaultFn(() => randomUUID()),
+  id: text('id').primaryKey().$defaultFn(uuid),
   name: text('name'),
   email: text('email').unique(),
   emailVerified: integer('emailVerified', { mode: 'timestamp_ms' }),
   image: text('image'),
 });
-
-// TODO: Auth
 
 export const accounts = sqliteTable(
   'account',
