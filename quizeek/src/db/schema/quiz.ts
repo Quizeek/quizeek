@@ -1,15 +1,13 @@
-import { randomUUID } from 'crypto';
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { v7 as uuid } from 'uuid';
 
 import { questions } from './question';
 import { quizAttempts } from './quiz-attempt';
 import { users } from './user';
 
 export const quizes = sqliteTable('quiz', {
-  id: text('id')
-    .primaryKey()
-    .$defaultFn(() => randomUUID()),
+  id: text('id').primaryKey().$defaultFn(uuid),
   createdBy: text('created_by').notNull(),
   title: text('title').notNull(),
   description: text('description'),
