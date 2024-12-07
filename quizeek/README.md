@@ -37,7 +37,11 @@ AUTH_TOKEN=DOES_NOT_MATTER
 
 ## Design
 
+### ERD
 ![erd](../design/erd.png)
+
+### Wireframes
+![wireframes](../design/wireframes.svg)
 
 ## Obtaining auth session
 Every route starting with `/auth` will requires authorization and so checking if user is logged in is not required. `authorized` callback is implemented in [src/auth.ts](./src/auth.ts).
