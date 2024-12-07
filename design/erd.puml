@@ -5,7 +5,10 @@ skinparam Nodesep 250
 entity user {
     *id: text <<PK>>
     ---
-    TODO
+    name: text
+    email: text
+    email_verified: integer
+    image: text
 }
 
 entity quiz {
@@ -13,6 +16,7 @@ entity quiz {
     ---
     *created_by: text <<FK>>
     *title: text
+    *is_active: integer
     description: text
     image_url: text
     time_limit_seconds: integer
