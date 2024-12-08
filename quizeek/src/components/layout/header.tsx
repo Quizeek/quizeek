@@ -20,7 +20,7 @@ const Header = () => {
   const session = useSession();
 
   return (
-    <header className="fixed top-0 flex h-16 w-full items-center justify-between shadow-md px-4 md:px-32">
+    <header className="fixed top-0 flex h-16 w-full items-center justify-between border-b px-4 md:px-32">
       <Link className="overflow-hidden rounded-full" href="/">
         <Image
           alt="Quizeek logo"
@@ -47,7 +47,7 @@ const Header = () => {
                   alt="User icon"
                   height={100}
                   width={100}
-                  className="w-8 h-8 rounded-full border-primary border-2 hover:border-secondary"
+                  className="w-8 h-8 rounded-full"
                 />
               )}
 
