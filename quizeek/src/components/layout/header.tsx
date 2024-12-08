@@ -1,12 +1,12 @@
 'use client';
 
-import LogoCircle from '@/assets/images/logo-circle.svg';
 import { Github } from 'lucide-react';
 import { CircleUserRound } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import Logo from '../logo';
 import { Button } from '../ui/button';
 import {
   DropdownMenu,
@@ -21,12 +21,8 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 flex h-16 w-full items-center justify-between border-b px-4 md:px-32">
-      <Link className="overflow-hidden rounded-full" href="/">
-        <Image
-          alt="Quizeek logo"
-          src={LogoCircle}
-          className="w-12 h-12 scale-150 hover:scale-100 ease-in duration-150 cursor-pointer"
-        />
+      <Link className="overflow-hidden" href="/">
+        <Logo className="h-12 w-full rounded-md" />
       </Link>
 
       <div className="flex flex-row items-center gap-3">
