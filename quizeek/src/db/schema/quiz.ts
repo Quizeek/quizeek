@@ -13,6 +13,7 @@ export const quizes = sqliteTable('quiz', {
   description: text('description'),
   imageUrl: text('image_url'),
   timeLimitSeconds: integer('time_limit_seconds').notNull(),
+  isActive: integer('is_active', { mode: 'boolean' }).notNull(),
 });
 
 export const quizesRelations = relations(quizes, ({ one, many }) => ({
