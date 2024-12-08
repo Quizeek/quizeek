@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="branding/logo-circle.svg" width="250" />
+  <img src="branding/logo-dark.svg" width="250" />
 </p>
 
 # Quizeek
