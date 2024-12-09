@@ -2,5 +2,5 @@
 // export * from './choice';
 // export * from './question';
 // export * from './quiz-attempt';
-// export * from './quiz';
+export * from './quiz';
 // export * from './user';
