@@ -1,11 +1,27 @@
 'use server';
 
-import { db } from '..';
-import { QuizWithUser } from '../schema/quiz';
+import { and, eq, like, or } from 'drizzle-orm';
 
-export const getQuizes = async (): Promise<QuizWithUser[]> => {
+import { db } from '..';
+import { quizes, QuizWithUser } from '../schema/quiz';
+
+export const getFilteredQuizes = async (
+  search: string,
+  onlyActive: boolean,
+  createdBy?: string
+): Promise<QuizWithUser[]> => {
   try {
+    const whereClause = and(
+      or(
+        like(quizes.title, `%${search}%`),
+        like(quizes.description, `%${search}%`)
+      ),
+      ...(onlyActive ? [eq(quizes.isActive, true)] : []),
+      ...(createdBy ? [like(quizes.createdBy, `%${createdBy}%`)] : [])
+    );
+
     const dbQuizes = await db.query.quizes.findMany({
+      where: whereClause,
       with: { creator: true },
     });
 
