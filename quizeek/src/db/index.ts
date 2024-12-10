@@ -9,7 +9,7 @@ import { quizAttempts, quizAttemptsRelations } from './schema/quiz-attempt';
 import { users, usersRelations } from './schema/user';
 
 const client = createClient({
-  url: process.env.DATABASE_URL ?? '',
+  url: process.env.DATABASE_URL ?? 'http://localhost:8080/', // TODO: How to fix?
   authToken: process.env.AUTH_TOKEN,
 });
 

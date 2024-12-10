@@ -8,6 +8,7 @@ import {
   text,
 } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
+import { z } from 'zod';
 
 import { quizes } from './quiz';
 import { quizAttempts } from './quiz-attempt';
@@ -95,3 +96,13 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export type User = InferSelectModel<typeof users>;
+
+export const updateUserSchema = z.object({
+  id: z.string(),
+  name: z
+    .string({ required_error: 'Name can not be empty' })
+    .min(1, 'Name can not be empty'),
+  email: z.string(),
+});
+
+export type UpdateUser = z.infer<typeof updateUserSchema>;
