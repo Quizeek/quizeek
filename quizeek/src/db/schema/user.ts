@@ -1,6 +1,6 @@
 import type { AdapterAccountType } from 'next-auth/adapters';
 
-import { relations } from 'drizzle-orm';
+import { InferSelectModel, relations } from 'drizzle-orm';
 import {
   integer,
   primaryKey,
@@ -93,3 +93,5 @@ export const usersRelations = relations(users, ({ many }) => ({
   quizAttempts: many(quizAttempts),
   quizes: many(quizes),
 }));
+
+export type User = InferSelectModel<typeof users>;
