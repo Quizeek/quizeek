@@ -1,3 +1,5 @@
+'use client';
+
 import LogoDark from '@/assets/images/logo-dark.svg';
 import LogoLight from '@/assets/images/logo-light.svg';
 import { useTheme } from 'next-themes';
