@@ -18,7 +18,7 @@ export const updateUserAction = async (body: UpdateUser) => {
       .returning();
 
     if (updatedUsers.length !== 1) {
-      throw new InvalidDataError('User does not exists');
+      throw new InvalidDataError('User does not exist');
     }
 
     revalidatePath('/auth/profile');
