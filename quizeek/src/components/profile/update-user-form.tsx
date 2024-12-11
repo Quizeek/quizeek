@@ -4,16 +4,18 @@ import { UpdateUser, updateUserSchema } from '@/db/schema/user';
 import { useUpdateUserMutation } from '@/hooks/user';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSession } from 'next-auth/react';
+import { SessionContextValue } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
 import FormInput from '../form/form-input';
 import SubmitButton from '../form/submit-button';
 import { Form } from '../ui/form';
 
-const UpdateUserForm = () => {
-  const session = useSession();
+type UpdateUserFormProps = {
+  session: SessionContextValue;
+};
 
+const UpdateUserForm = ({ session }: UpdateUserFormProps) => {
   const updateUserMutation = useUpdateUserMutation();
 
   const form = useForm<UpdateUser>({
@@ -39,21 +41,17 @@ const UpdateUserForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col md:flex-row gap-3 p-3"
+        className="flex flex-col md:flex-row gap-3"
       >
         <FormInput name="name" label="Name:" />
         <FormInput name="email" label="E-mail:" disabled />
 
-        <div
-          className={cn(
-            'space-y-2',
-            !form.formState.isDirty && 'hidden md:block md:invisible'
-          )}
-        >
-          <p className="hidden md:block md:invisible">.</p>
-
+        <div>
           <SubmitButton
-            className="w-full md:w-20"
+            className={cn(
+              'w-full md:w-20 md:mt-8',
+              !form.formState.isDirty && 'hidden md:block md:invisible'
+            )}
             isLoading={updateUserMutation.isPending}
           >
             Update

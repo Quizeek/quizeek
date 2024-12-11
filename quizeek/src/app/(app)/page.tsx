@@ -1,7 +1,7 @@
+import Loader from '@/components/layout/loader';
 import { QuizList } from '@/components/quiz/quiz-list';
 import { SearchInput } from '@/components/search-input';
 import { toNormalizedString } from '@/utils';
-import { Loader } from 'lucide-react';
 import { Suspense } from 'react';
 
 type HomeProps = {
@@ -22,7 +22,7 @@ const Home = async ({ searchParams }: HomeProps) => {
         className="w-full md:w-64"
       />
 
-      <Suspense fallback={<Loader className="animate-spin" />}>
+      <Suspense fallback={<Loader />}>
         <QuizList searchText={normalizedSearchText} onlyActive={false} />
       </Suspense>
     </div>

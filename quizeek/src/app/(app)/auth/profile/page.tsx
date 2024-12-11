@@ -1,13 +1,10 @@
-import UserSettingsForm from '@/components/profile/update-user-form';
-import { Card } from '@/components/ui/card';
+import UserSettingsCard from '@/components/profile/user-settings-card';
 import React from 'react';
 
 const Page = async () => {
   return (
     <div>
-      <Card>
-        <UserSettingsForm />
-      </Card>
+      <UserSettingsCard />
     </div>
   );
 };
