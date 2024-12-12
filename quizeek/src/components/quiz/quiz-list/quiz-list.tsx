@@ -1,6 +1,5 @@
 import { QuizWithUser } from '@/db/schema/quiz';
 
-import { ScrollArea } from '../../ui/scroll-area';
 import { QuizListItem } from './quiz-list-item';
 
 type QuizListProps = {

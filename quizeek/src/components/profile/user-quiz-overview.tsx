@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import QuizAuthorBadge from '../quiz/quiz-author-badge';
-import { QuizList } from '../quiz/quiz-list';
+import { QuizList } from '../quiz/quiz-list/quiz-list';
 import QuizStatusBadge from '../quiz/quiz-status-badge';
 import { SearchInput } from '../search-input';
 import { Button } from '../ui/button';

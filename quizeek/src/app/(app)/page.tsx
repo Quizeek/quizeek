@@ -1,5 +1,5 @@
 import QuizAuthorBadge from '@/components/quiz/quiz-author-badge';
-import { QuizList } from '@/components/quiz/quiz-list';
+import { QuizList } from '@/components/quiz/quiz-list/quiz-list';
 import { SearchInput } from '@/components/search-input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getActiveQuizes } from '@/db/queries';
