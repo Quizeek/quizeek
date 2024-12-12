@@ -1,10 +1,22 @@
+import UserQuizOverview from '@/components/profile/user-quiz-overview';
 import UserSettingsCard from '@/components/profile/user-settings-card';
+import { toNormalizedString } from '@/utils';
 import React from 'react';
 
-const Page = async () => {
+type PageProps = {
+  searchParams?: Promise<{
+    searchText?: string;
+  }>;
+};
+
+const Page = async ({ searchParams }: PageProps) => {
+  const searchText = (await searchParams)?.searchText || '';
+  const normalizedSearchText = toNormalizedString(searchText);
+
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <UserSettingsCard />
+      <UserQuizOverview searchText={normalizedSearchText} />
     </div>
   );
 };

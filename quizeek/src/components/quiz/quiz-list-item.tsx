@@ -15,7 +15,7 @@ export const QuizListItem = ({ quiz, getQuizBadge }: QuizListItemProps) => {
   return (
     <Link href={`/quiz/${quiz.id}`}>
       <li>
-        <Card className="p-4 flex md:flex-row justify-between flex-col gap-4 hover:cursor-pointer hover:border-1 hover:border-primary">
+        <Card className="p-4 flex md:flex-row justify-between flex-col gap-4 hover:cursor-pointer hover:ring-1 hover:ring-ring ">
           <div className="flex md:flex-row gap-4 flex-col">
             {quiz.imageUrl && (
               <Image
@@ -33,7 +33,7 @@ export const QuizListItem = ({ quiz, getQuizBadge }: QuizListItemProps) => {
             </div>
           </div>
 
-          <div className="flex md:flex-col justify-between md:min-w-40 md:max-w-64">
+          <div className="flex md:flex-col justify-between md:max-w-64 items-end shrink-0">
             <QuizTimeBadge quiz={quiz} />
             {getQuizBadge(quiz)}
           </div>

@@ -52,7 +52,7 @@ const Header = () => {
               )}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <Link href="auth/profile">
+              <Link href="/auth/profile">
                 <DropdownMenuItem className="cursor-pointer">
                   Profile
                 </DropdownMenuItem>
