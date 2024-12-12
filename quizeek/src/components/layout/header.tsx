@@ -34,7 +34,7 @@ const Header = () => {
 
         {session.status === 'authenticated' && (
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex flex-row gap-3 items-center focus:outline-none">
+            <DropdownMenuTrigger className="flex flex-row gap-3 items-center focus:outline-none hover:bg-accent py-1 px-2 rounded-md">
               <span>{session.data.user.name}</span>
 
               {session.data.user.image && (

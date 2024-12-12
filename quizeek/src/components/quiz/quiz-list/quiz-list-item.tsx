@@ -2,9 +2,9 @@ import { QuizWithUser } from '@/db/schema/quiz';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Logo from '../logo';
-import { Card } from '../ui/card';
-import QuizTimeBadge from './quiz-time-badge';
+import Logo from '../../logo';
+import { Card } from '../../ui/card';
+import QuizTimeBadge from '../quiz-time-badge';
 
 type QuizListItemProps = {
   quiz: QuizWithUser;
