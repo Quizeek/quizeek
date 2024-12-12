@@ -33,13 +33,10 @@ export const QuestionBubbleList = ({
   });
 
   const reorderQuestions = (e: DragEndEvent) => {
-    if (!e.over) {
+    if (!e.over || e.active.id === e.over.id) {
       return;
     }
 
-    if (e.active.id === e.over.id) {
-      return;
-    }
     setQuestions((questions) => {
       const oldIdx = questions.findIndex((q) => q.id === e.active.id);
       const newIdx = questions.findIndex((q) => q.id === e.over?.id);
