@@ -20,7 +20,7 @@ const Header = () => {
   const session = useSession();
 
   return (
-    <header className="fixed top-0 flex h-16 w-full items-center justify-between border-b px-4 md:px-32">
+    <header className="fixed top-0 flex h-16 w-full items-center justify-between border-b px-4 md:px-32 bg-white dark:bg-black">
       <Link className="overflow-hidden" href="/">
         <Logo className="h-12 w-full rounded-md" />
       </Link>
@@ -34,7 +34,7 @@ const Header = () => {
 
         {session.status === 'authenticated' && (
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex flex-row gap-3 items-center focus:outline-none">
+            <DropdownMenuTrigger className="flex flex-row gap-3 items-center focus:outline-none hover:bg-accent py-1 px-2 rounded-md">
               <span>{session.data.user.name}</span>
 
               {session.data.user.image && (
