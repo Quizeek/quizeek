@@ -9,7 +9,7 @@ type QuizListProps = {
 
 export const QuizList = ({ quizes, getQuizBadge }: QuizListProps) => {
   return (
-    <ul className="space-y-4 pr-4 w-full">
+    <ul className="gap-3 w-full flex flex-col">
       {quizes.map((quiz) => (
         <QuizListItem key={quiz.id} quiz={quiz} getQuizBadge={getQuizBadge} />
       ))}

@@ -1,4 +1,5 @@
 import Header from '@/components/layout/header';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import React, { PropsWithChildren } from 'react';
 
 const Layout = (props: PropsWithChildren) => {
@@ -8,7 +9,9 @@ const Layout = (props: PropsWithChildren) => {
     <div>
       <Header />
 
-      <div className="mt-20 mx-4 md:mx-32">{children}</div>
+      <ScrollArea className="mt-20 h-[calc(100vh-6rem)]" type="auto">
+        <div className="mx-4 md:mx-32">{children}</div>
+      </ScrollArea>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SessionContextValue } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import FormInput from '../form/form-input';
 import SubmitButton from '../form/submit-button';
@@ -33,6 +34,11 @@ const UpdateUserForm = ({ session }: UpdateUserFormProps) => {
         await session.update({ ...data });
 
         form.reset({ ...data });
+
+        toast.success('Successfully updated name');
+      },
+      onError: (e) => {
+        toast.error(e.message);
       },
     });
   };

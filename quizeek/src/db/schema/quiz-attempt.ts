@@ -8,7 +8,7 @@ import { users } from './user';
 
 export const quizAttempts = sqliteTable('quiz_attempt', {
   id: text('id').primaryKey().$defaultFn(uuid),
-  userId: text('user-id').notNull(),
+  userId: text('user_id').notNull(),
   quizId: text('quiz_id').notNull(),
   timestamp: text('date')
     .notNull()
