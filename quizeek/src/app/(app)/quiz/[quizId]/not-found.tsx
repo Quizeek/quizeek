@@ -1,5 +1,6 @@
 import { Frown } from 'lucide-react';
 import Link from 'next/link';
+
 const NotFound = () => (
   <main className="flex h-full flex-col items-center justify-center gap-2">
     <Frown className="w-10 dark:text-primary" />
