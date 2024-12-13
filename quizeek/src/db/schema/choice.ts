@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm';
+import { InferSelectModel, relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
 
@@ -20,3 +20,5 @@ export const choicesRelations = relations(choices, ({ one, many }) => ({
   }),
   answers: many(answers),
 }));
+
+export type Choice = InferSelectModel<typeof choices>;

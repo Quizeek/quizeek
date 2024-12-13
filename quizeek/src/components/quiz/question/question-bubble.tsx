@@ -7,8 +7,8 @@ import { Dispatch, SetStateAction } from 'react';
 
 type BubbleProps = {
   question: Question;
-  currentQuestion: number;
-  setCurrentQuestion: Dispatch<SetStateAction<number>>;
+  currentQuestion: string;
+  setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
 };
 
@@ -27,7 +27,7 @@ export const QuestionBubble = ({
     }
 
     carouselApi?.scrollTo(question.number - 1);
-    setCurrentQuestion(question.number);
+    setCurrentQuestion(question.id);
   };
 
   return (
@@ -40,9 +40,10 @@ export const QuestionBubble = ({
         transition,
       }}
       className={cn(
-        `rounded-full border w-6 h-6 text-center hover:bg-secondary cursor-pointer overflow-x-auto text-foreground ${currentQuestion === question.number && 'bg-primary dark:text-black'}`
+        'rounded-full border w-6 h-6 text-center hover:bg-primary cursor-pointer overflow-x-auto text-foreground',
+        currentQuestion === question.id && 'bg-primary dark:text-black'
       )}
-      onMouseDown={onClick}
+      onMouseUp={onClick}
     >
       {question.number}
     </span>
