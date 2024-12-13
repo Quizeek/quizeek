@@ -40,7 +40,8 @@ export const QuestionBubble = ({
         transition,
       }}
       className={cn(
-        `rounded-full border w-6 h-6 text-center hover:bg-primary cursor-pointer overflow-x-auto text-foreground ${currentQuestion === question.id && 'bg-primary dark:text-black'}`
+        'rounded-full border w-6 h-6 text-center hover:bg-primary cursor-pointer overflow-x-auto text-foreground',
+        currentQuestion === question.id && 'bg-primary dark:text-black'
       )}
       onMouseUp={onClick}
     >
