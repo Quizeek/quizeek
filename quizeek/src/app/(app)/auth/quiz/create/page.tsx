@@ -8,9 +8,9 @@ import {
 
 const Page = () => {
   return (
-    <Accordion type="single" collapsible>
+    <Accordion type="multiple" defaultValue={['quiz info']}>
       <AccordionItem
-        value="general"
+        value="quiz info"
         className="border px-4 py-2 rounded-xl mb-4"
       >
         <AccordionTrigger className="hover:no-underline text-xl font-semibold">
