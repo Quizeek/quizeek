@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { QuizDetail } from '@/components/quiz/quiz-detail';
+import { QuizDetail } from '@/components/quiz/detail/quiz-detail';
 import { getQuizById } from '@/db/queries';
 import { notFound } from 'next/navigation';
 
