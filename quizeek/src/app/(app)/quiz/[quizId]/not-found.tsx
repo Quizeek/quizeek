@@ -2,7 +2,7 @@ import { Frown } from 'lucide-react';
 import Link from 'next/link';
 
 const NotFound = () => (
-  <main className="flex h-full flex-col items-center justify-center gap-2">
+  <div className="flex h-full flex-col items-center justify-center gap-2">
     <Frown className="w-10 dark:text-primary" />
     <h2 className="text-xl font-semibold">404 Not Found</h2>
     <p>Could not find the requested quiz.</p>
@@ -12,7 +12,7 @@ const NotFound = () => (
     >
       Go Back
     </Link>
-  </main>
+  </div>
 );
 
 export default NotFound;
