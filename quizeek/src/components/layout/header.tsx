@@ -1,13 +1,12 @@
 'use client';
 
-import { Github } from 'lucide-react';
 import { CircleUserRound } from 'lucide-react';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import Logo from '../logo';
-import { Button } from '../ui/button';
+import { SignInButton } from '../sign-in-button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,11 +25,7 @@ const Header = () => {
       </Link>
 
       <div className="flex flex-row items-center gap-3">
-        {session.status === 'unauthenticated' && (
-          <Button onClick={() => signIn('github')}>
-            <Github /> Sign in
-          </Button>
-        )}
+        {session.status === 'unauthenticated' && <SignInButton />}
 
         {session.status === 'authenticated' && (
           <DropdownMenu>

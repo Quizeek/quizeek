@@ -8,8 +8,8 @@ import { SessionContextValue } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import ActionButton from '../action-button';
 import FormInput from '../form/form-input';
-import SubmitButton from '../form/submit-button';
 import { Form } from '../ui/form';
 
 type UpdateUserFormProps = {
@@ -53,15 +53,16 @@ const UpdateUserForm = ({ session }: UpdateUserFormProps) => {
         <FormInput name="email" label="E-mail:" disabled />
 
         <div>
-          <SubmitButton
+          <ActionButton
             className={cn(
               'w-full md:w-20 md:mt-8',
               !form.formState.isDirty && 'hidden md:block md:invisible'
             )}
             isLoading={updateUserMutation.isPending}
+            type="submit"
           >
             Update
-          </SubmitButton>
+          </ActionButton>
         </div>
       </form>
     </Form>

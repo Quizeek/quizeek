@@ -29,6 +29,21 @@ export const getActiveQuizes = async (
   }
 };
 
+export const getQuizById = async (
+  quizId: string
+): Promise<QuizWithUser | undefined> => {
+  try {
+    const quiz = await db.query.quizes.findFirst({
+      where: eq(quizes.id, quizId),
+      with: { creator: true },
+    });
+
+    return quiz;
+  } catch {
+    throw new Error('Failed to load quiz.');
+  }
+};
+
 export const getMyQuizes = async (
   searchText: string
 ): Promise<QuizWithUser[]> => {

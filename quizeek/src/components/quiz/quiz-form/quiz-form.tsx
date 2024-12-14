@@ -1,6 +1,6 @@
 'use client';
 
-import SubmitButton from '@/components/form/submit-button';
+import ActionButton from '@/components/action-button';
 import {
   Accordion,
   AccordionContent,
@@ -33,11 +33,10 @@ const QuizForm = () => {
 
   const onSubmit = async (data: QuizFormData) => {
     await submitQuizFormMutation.mutateAsync(data, {
-      onSuccess: async () => {
+      onSuccess: async (quizId) => {
         toast.success('Successfully submitted form');
 
-        // TODO: Redirect to detail
-        redirect('/');
+        redirect(`/quiz/${quizId}`);
       },
       onError: (e) => {
         toast.error(e.message);
@@ -76,9 +75,12 @@ const QuizForm = () => {
           </AccordionItem>
         </Accordion>
 
-        <SubmitButton isLoading={submitQuizFormMutation.isPending}>
+        <ActionButton
+          type="submit"
+          isLoading={submitQuizFormMutation.isPending}
+        >
           Submit
-        </SubmitButton>
+        </ActionButton>
       </form>
     </Form>
   );

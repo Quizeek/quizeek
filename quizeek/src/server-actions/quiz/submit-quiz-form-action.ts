@@ -29,7 +29,7 @@ export const submitQuizFormAction = async (body: QuizForm) => {
     const timeLimitSeconds =
       durationHours * 3600 + durationMinutes * 60 + durationSeconds;
 
-    await db.transaction(async (tx) => {
+    return await db.transaction(async (tx) => {
       try {
         const quizToCreate = {
           createdBy: session.user.id,
@@ -87,6 +87,8 @@ export const submitQuizFormAction = async (body: QuizForm) => {
         ) {
           throw new InvalidDataError('Could not create choices');
         }
+
+        return newQuiz[0].id;
       } catch (e) {
         tx.rollback();
         throw e;
@@ -94,5 +96,6 @@ export const submitQuizFormAction = async (body: QuizForm) => {
     });
   } catch (error) {
     handleServerActionError(error);
+    return '';
   }
 };
