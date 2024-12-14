@@ -67,8 +67,8 @@ export const QuestionList = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-2 -top-4" />
-      <CarouselNext className="absolute right-2 -top-4" />
+      <CarouselPrevious type="button" className="absolute left-2 -top-4" />
+      <CarouselNext type="button" className="absolute right-2 -top-4" />
     </Carousel>
   );
 };

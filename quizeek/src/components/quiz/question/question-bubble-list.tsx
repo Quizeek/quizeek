@@ -1,26 +1,27 @@
 import { CarouselApi } from '@/components/ui/carousel';
-import { type QuestionWithChoices } from '@/db/schema/question';
+import { QuestionBubbleType } from '@/models/question';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 
 import { QuestionBubble } from './question-bubble';
 
-type QuestionBubbleListProps = {
-  questions: QuestionWithChoices[];
-  setQuestions: Dispatch<SetStateAction<QuestionWithChoices[]>>;
+type QuestionBubbleListProps<TQuestion extends QuestionBubbleType> = {
+  questions: TQuestion[];
+  setQuestions: Dispatch<SetStateAction<TQuestion[]>>;
   currentQuestion: string;
   setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
-};
+} & PropsWithChildren;
 
-export const QuestionBubbleList = ({
+export const QuestionBubbleList = <TQuestion extends QuestionBubbleType>({
   questions,
   setQuestions,
   currentQuestion,
   setCurrentQuestion,
   carouselApi,
-}: QuestionBubbleListProps) => {
+  children,
+}: QuestionBubbleListProps<TQuestion>) => {
   carouselApi?.on('slidesInView', (e) => {
     const slides = e.slidesInView();
 
@@ -29,8 +30,10 @@ export const QuestionBubbleList = ({
     }
 
     const currentId = slides.at(0) ?? 0;
-    const question = questions[currentId];
-    setCurrentQuestion(question.id);
+
+    const question = questions?.[currentId];
+
+    setCurrentQuestion(question?.id ?? '');
   });
 
   const reorderQuestions = (e: DragEndEvent) => {
@@ -60,8 +63,9 @@ export const QuestionBubbleList = ({
               carouselApi={carouselApi}
               currentQuestion={currentQuestion}
               setCurrentQuestion={setCurrentQuestion}
-            ></QuestionBubble>
+            />
           ))}
+          {children}
         </SortableContext>
       </DndContext>
     </div>

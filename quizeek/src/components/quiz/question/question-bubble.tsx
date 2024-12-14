@@ -1,23 +1,23 @@
 import { CarouselApi } from '@/components/ui/carousel';
-import { Question } from '@/db/schema/question';
 import { cn } from '@/lib/utils';
+import { QuestionBubbleType } from '@/models/question';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Dispatch, SetStateAction } from 'react';
 
-type BubbleProps = {
-  question: Question;
+type BubbleProps<TQuestion extends QuestionBubbleType> = {
+  question: TQuestion;
   currentQuestion: string;
   setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
 };
 
-export const QuestionBubble = ({
+export const QuestionBubble = <TQuestion extends QuestionBubbleType>({
   question,
   carouselApi,
   currentQuestion,
   setCurrentQuestion,
-}: BubbleProps) => {
+}: BubbleProps<TQuestion>) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: question.id });
 

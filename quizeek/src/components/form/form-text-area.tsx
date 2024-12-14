@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { TextareaHTMLAttributes } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -8,14 +8,14 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
 
-type FormInputProps = {
+type FormTextAreaProps = {
   name: string;
   label: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+} & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-const FormInput = ({ name, label, ...props }: FormInputProps) => {
+const FormTextArea = ({ name, label, ...props }: FormTextAreaProps) => {
   const form = useFormContext();
 
   return (
@@ -26,7 +26,7 @@ const FormInput = ({ name, label, ...props }: FormInputProps) => {
         <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} {...props} />
+            <Textarea {...field} {...props} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -35,4 +35,4 @@ const FormInput = ({ name, label, ...props }: FormInputProps) => {
   );
 };
 
-export default FormInput;
+export default FormTextArea;
