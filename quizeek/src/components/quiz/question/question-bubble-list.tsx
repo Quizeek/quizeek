@@ -1,5 +1,5 @@
 import { CarouselApi } from '@/components/ui/carousel';
-import { Question } from '@/db/schema/question';
+import { type QuestionWithChoices } from '@/db/schema/question';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { Dispatch, SetStateAction } from 'react';
@@ -7,10 +7,10 @@ import { Dispatch, SetStateAction } from 'react';
 import { QuestionBubble } from './question-bubble';
 
 type QuestionBubbleListProps = {
-  questions: Question[];
-  setQuestions: Dispatch<SetStateAction<Question[]>>;
-  currentQuestion: number;
-  setCurrentQuestion: Dispatch<SetStateAction<number>>;
+  questions: QuestionWithChoices[];
+  setQuestions: Dispatch<SetStateAction<QuestionWithChoices[]>>;
+  currentQuestion: string;
+  setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
 };
 
@@ -29,7 +29,8 @@ export const QuestionBubbleList = ({
     }
 
     const currentId = slides.at(0) ?? 0;
-    setCurrentQuestion(currentId + 1);
+    const question = questions[currentId];
+    setCurrentQuestion(question.id);
   });
 
   const reorderQuestions = (e: DragEndEvent) => {
