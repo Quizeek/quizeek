@@ -18,10 +18,16 @@ export const Question = ({ question }: QuestionProps) => {
             {question.text}
           </QuestionDescription>
           {question.type === 'multiple_choice' && (
-            <MultiChoiceList choices={question.choices} />
+            <MultiChoiceList
+              questionId={question.id}
+              choices={question.choices}
+            />
           )}
           {question.type === 'single_choice' && (
-            <SingleChoiceList choices={question.choices} />
+            <SingleChoiceList
+              questionId={question.id}
+              choices={question.choices}
+            />
           )}
         </CardContent>
       </Card>

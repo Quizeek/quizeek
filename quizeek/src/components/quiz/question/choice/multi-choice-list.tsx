@@ -4,17 +4,21 @@ import { Choice } from '@/db/schema/choice';
 import { MultiChoice } from './multi-choice';
 
 export type MultiChoiceListProps = {
+  questionId: string;
   choices: Choice[];
 };
 
-export const MultiChoiceList = ({ choices }: MultiChoiceListProps) => {
+export const MultiChoiceList = ({
+  questionId,
+  choices,
+}: MultiChoiceListProps) => {
   return (
     <ScrollArea
       type="auto"
       className="mt-4 flex flex-col max-h-[40vh] overflow-y-auto pr-4"
     >
       {choices.map((choice) => (
-        <MultiChoice key={choice.id} choice={choice} />
+        <MultiChoice key={choice.id} choice={choice} questionId={questionId} />
       ))}
     </ScrollArea>
   );

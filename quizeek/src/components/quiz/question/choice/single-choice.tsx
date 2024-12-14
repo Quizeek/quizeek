@@ -1,3 +1,4 @@
+import { FormControl } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { RadioGroupItem } from '@/components/ui/radio-group';
 import { Choice as ChoiceType } from '@/db/schema/choice';
@@ -11,7 +12,9 @@ export type SingleChoiceProps = {
 export const SingleChoice = ({ choice }: SingleChoiceProps) => {
   return (
     <Choice>
-      <RadioGroupItem value={choice.id} id={choice.id} />
+      <FormControl>
+        <RadioGroupItem value={choice.id} id={choice.id} />
+      </FormControl>
       <Label htmlFor={choice.id} className="block w-full h-full p-3 leading-4">
         {choice.text}
       </Label>

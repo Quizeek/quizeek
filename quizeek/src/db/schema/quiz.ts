@@ -85,3 +85,4 @@ export const quizFormSchema = z.object({
 });
 
 export type QuizForm = z.infer<typeof quizFormSchema>;
+export type QuizWithQuestions = Quiz & { questions: QuestionWithChoices[] };

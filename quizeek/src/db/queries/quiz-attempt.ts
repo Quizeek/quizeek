@@ -10,6 +10,7 @@ import {
   QuizAttemptWithUser,
 } from '../schema/quiz-attempt';
 import { users } from '../schema/user';
+import { getQuizById } from './quiz';
 
 export const getMyQuizAttempts = async (
   quizId: string
@@ -70,5 +71,45 @@ export const getOtherQuizAttempts = async (
     return otherQuizAttempts;
   } catch (error) {
     throw handleError(error);
+  }
+};
+
+export const createQuizAttempt = async (
+  quizId: string
+): Promise<QuizAttempt | undefined> => {
+  const session = await auth();
+
+  try {
+    const quiz = await getQuizById(quizId);
+
+    if (!quiz) {
+      throw new Error('Quiz does not exist.');
+    }
+
+    const quizAttempt = await db
+      .insert(quizAttempts)
+      .values({
+        userId: session?.user.id ?? '',
+        quizId: quizId,
+      })
+      .returning();
+
+    return quizAttempt[0];
+  } catch {
+    throw new Error('Failed to create quiz attempt.');
+  }
+};
+
+export const getQuizAttemptById = async (
+  quizId: string
+): Promise<QuizAttempt | undefined> => {
+  try {
+    const quizAttempt = await db.query.quizAttempts.findFirst({
+      where: eq(quizes.id, quizId),
+    });
+
+    return quizAttempt;
+  } catch {
+    throw new Error('Failed to load quiz attempt.');
   }
 };

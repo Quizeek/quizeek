@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { Choice, choices } from './choice';
 import { quizes } from './quiz';
 
-const questionType = z.enum(['single_choice', 'multiple_choice']);
+export const questionType = z.enum(['single_choice', 'multiple_choice']);
 
 export type QuestionType = z.infer<typeof questionType>;
 
