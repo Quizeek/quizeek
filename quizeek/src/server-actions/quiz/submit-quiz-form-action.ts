@@ -22,9 +22,9 @@ export const submitQuizFormAction = async (body: QuizForm) => {
       ...data
     } = await quizFormSchema.parseAsync(body);
 
-    const durationSeconds = parseInt(duration.substring(0, 1));
+    const durationHours = parseInt(duration.substring(0, 1));
     const durationMinutes = parseInt(duration.substring(3, 5));
-    const durationHours = parseInt(duration.substring(7, 9));
+    const durationSeconds = parseInt(duration.substring(7, 9));
 
     const timeLimitSeconds =
       durationHours * 3600 + durationMinutes * 60 + durationSeconds;
