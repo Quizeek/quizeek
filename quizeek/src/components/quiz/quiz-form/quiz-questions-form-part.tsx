@@ -208,7 +208,6 @@ const QuizQuestionsFormPart = () => {
                                 )
                               }
                             />
-
                             <span className="text-destructive md:absolute md:-bottom-5">
                               {
                                 form.formState.errors.questions?.[questionIdx]
@@ -227,6 +226,7 @@ const QuizQuestionsFormPart = () => {
                               customInput={Input}
                               decimalScale={0}
                               placeholder="Points"
+                              value={choice.points}
                               onChange={(e) =>
                                 updateChoice(
                                   question.id,
@@ -265,7 +265,6 @@ const QuizQuestionsFormPart = () => {
                               >
                                 {choice.isCorrect ? 'Correct' : 'Incorrect'}
                               </Label>
-
                               <span className="text-destructive md:absolute md:-bottom-5">
                                 {
                                   form.formState.errors.questions?.[questionIdx]
@@ -317,6 +316,12 @@ const QuizQuestionsFormPart = () => {
             </div>
           </CarouselItem>
         ))}
+
+        {form.formState.errors.questions?.message && (
+          <span className="text-destructive w-fit mx-4">
+            {form.formState.errors.questions?.message}
+          </span>
+        )}
       </CarouselContent>
       <CarouselPrevious type="button" className="absolute left-2 -top-4" />
       <CarouselNext type="button" className="absolute right-2 -top-4" />

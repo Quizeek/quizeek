@@ -8,6 +8,8 @@ import { quizes } from './quiz';
 
 const questionType = z.enum(['single_choice', 'multiple_choice']);
 
+export type QuestionType = z.infer<typeof questionType>;
+
 export const questions = sqliteTable('question', {
   id: text('id').primaryKey().$defaultFn(uuid),
   quizId: text('quiz_id').notNull(),

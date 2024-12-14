@@ -46,37 +46,39 @@ export const quizFormSchema = z.object({
       'Duration must be fully entered and can not be zero'
     ),
   isActive: z.boolean(),
-  questions: z.array(
-    z.object({
-      id: z.string(),
-      number: z.number(),
-      text: z
-        .string({ required_error: 'Question text can not be empty' })
-        .min(1, 'Question text can not be empty'),
-      choices: z
-        .array(
-          z.object({
-            id: z.string(),
-            text: z
-              .string({ required_error: 'Choice text can not be empty' })
-              .min(1, 'Choice text can not be empty'),
-            isCorrect: z.boolean(),
-            points: z
-              .number({
-                required_error: 'Choice points can not be empty',
-                invalid_type_error: 'Choice points can not be empty',
-              })
-              .min(-4, 'Choice points must be <-4, 4>')
-              .max(4, 'Choice points must be <-4, 4>'),
-          })
-        )
-        .min(2, 'Question must have at least 2 choices')
-        .refine(
-          (choices) => choices.filter((c) => c.isCorrect).length > 0,
-          'There must be at least 1 correct choice'
-        ),
-    })
-  ),
+  questions: z
+    .array(
+      z.object({
+        id: z.string(),
+        number: z.number(),
+        text: z
+          .string({ required_error: 'Question text can not be empty' })
+          .min(1, 'Question text can not be empty'),
+        choices: z
+          .array(
+            z.object({
+              id: z.string(),
+              text: z
+                .string({ required_error: 'Choice text can not be empty' })
+                .min(1, 'Choice text can not be empty'),
+              isCorrect: z.boolean(),
+              points: z
+                .number({
+                  required_error: 'Choice points can not be empty',
+                  invalid_type_error: 'Choice points can not be empty',
+                })
+                .min(-4, 'Choice points must be <-4, 4>')
+                .max(4, 'Choice points must be <-4, 4>'),
+            })
+          )
+          .min(2, 'Question must have at least 2 choices')
+          .refine(
+            (choices) => choices.filter((c) => c.isCorrect).length > 0,
+            'There must be at least 1 correct choice'
+          ),
+      })
+    )
+    .min(1, 'Quiz must have at least 1 question'),
 });
 
 export type QuizForm = z.infer<typeof quizFormSchema>;

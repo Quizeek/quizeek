@@ -1,1 +1,1 @@
-// TODO: Export `export * from ...;`
+export * from './submit-quiz-form-action';
