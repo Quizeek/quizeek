@@ -1,10 +1,10 @@
-import { relations, sql } from 'drizzle-orm';
+import { InferSelectModel, relations, sql } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
 
 import { answers } from './answer';
 import { quizes } from './quiz';
-import { users } from './user';
+import { User, users } from './user';
 
 export const quizAttempts = sqliteTable('quiz_attempt', {
   id: text('id').primaryKey().$defaultFn(uuid),
@@ -30,3 +30,7 @@ export const quizAttemptsRelations = relations(
     answers: many(answers),
   })
 );
+
+export type QuizAttempt = InferSelectModel<typeof quizAttempts>;
+
+export type QuizAttemptWithUser = QuizAttempt & { user: User };

@@ -21,6 +21,8 @@ export const QuizListItem = ({ quiz, getQuizBadge }: QuizListItemProps) => {
               <Image
                 src={quiz.imageUrl}
                 alt={quiz.title}
+                height={400}
+                width={400}
                 className="w-24 h-24 rounded-md"
               />
             )}

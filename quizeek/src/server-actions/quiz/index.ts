@@ -1,1 +1,1 @@
-// TODO: Export `export * from ...;`
+export * from './activate-quiz-action';
