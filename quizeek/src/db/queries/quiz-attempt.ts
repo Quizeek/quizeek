@@ -72,3 +72,17 @@ export const getOtherQuizAttempts = async (
     throw handleError(error);
   }
 };
+
+export const getQuizAttemptById = async (
+  attemptId: string
+): Promise<QuizAttempt | undefined> => {
+  try {
+    const quizAttempt = await db.query.quizAttempts.findFirst({
+      where: eq(quizAttempts.id, attemptId),
+    });
+
+    return quizAttempt;
+  } catch {
+    throw new Error('Failed to load quiz attempt.');
+  }
+};

@@ -22,3 +22,5 @@ export const choicesRelations = relations(choices, ({ one, many }) => ({
 }));
 
 export type Choice = InferSelectModel<typeof choices>;
+
+export type PublicChoice = Omit<Choice, 'points' | 'isCorrect'>;

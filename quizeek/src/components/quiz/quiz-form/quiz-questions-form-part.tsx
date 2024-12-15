@@ -138,6 +138,7 @@ const QuizQuestionsFormPart = () => {
         carouselApi={carouselApi}
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
+        draggable={true}
       >
         <span
           className={
