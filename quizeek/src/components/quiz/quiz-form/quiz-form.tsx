@@ -10,9 +10,10 @@ import {
 import { Form } from '@/components/ui/form';
 import { QuizForm as QuizFormData, quizFormSchema } from '@/db/schema/quiz';
 import { useSubmitQuizFormMutation } from '@/hooks/quiz';
+import { useUploadThing } from '@/utils/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { redirect } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -20,6 +21,8 @@ import QuizInfoFormPart from './quiz-info-form-part';
 import QuizQuestionsFormPart from './quiz-questions-form-part';
 
 const QuizForm = () => {
+  const [files, setFiles] = useState<File[]>([]);
+
   const form = useForm<QuizFormData>({
     resolver: zodResolver(quizFormSchema),
     defaultValues: {
@@ -29,19 +32,28 @@ const QuizForm = () => {
     },
   });
 
+  const { startUpload, routeConfig } = useUploadThing('quizImage', {
+    onUploadError: () => {
+      throw new Error('Failed to upload the file. Please try again.');
+    },
+  });
+
   const submitQuizFormMutation = useSubmitQuizFormMutation();
 
   const onSubmit = async (data: QuizFormData) => {
-    await submitQuizFormMutation.mutateAsync(data, {
-      onSuccess: async (quizId) => {
-        toast.success('Successfully submitted form');
+    await submitQuizFormMutation.mutateAsync(
+      { data, file: files[0], startUpload },
+      {
+        onSuccess: async (quizId) => {
+          toast.success('Successfully submitted form');
 
-        redirect(`/quiz/${quizId}`);
-      },
-      onError: (e) => {
-        toast.error(e.message);
-      },
-    });
+          redirect(`/quiz/${quizId}`);
+        },
+        onError: (e) => {
+          toast.error(e.message);
+        },
+      }
+    );
   };
 
   return (
@@ -59,7 +71,11 @@ const QuizForm = () => {
               Quiz info
             </AccordionTrigger>
             <AccordionContent>
-              <QuizInfoFormPart />
+              <QuizInfoFormPart
+                files={files}
+                setFiles={setFiles}
+                routeConfig={routeConfig}
+              />
             </AccordionContent>
           </AccordionItem>
           <AccordionItem
