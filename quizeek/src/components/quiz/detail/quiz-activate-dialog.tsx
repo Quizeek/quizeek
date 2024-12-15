@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { QuizWithUser } from '@/db/schema/quiz';
-import { useActivateQuizMutation } from '@/hooks/quiz';
+import { useActivateQuizMutation } from '@/hooks';
 import React from 'react';
 import { toast } from 'sonner';
 

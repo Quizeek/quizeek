@@ -1,6 +1,9 @@
 import { SubmitQuizFormMutationType } from '@/models';
-import { activateQuizAction, submitQuizFormAction } from '@/server-actions';
-import { deleteQuizAction } from '@/server-actions/quiz/delete-quiz-action';
+import {
+  activateQuizAction,
+  deleteQuizAction,
+  submitQuizFormAction,
+} from '@/server-actions';
 import { useMutation } from '@tanstack/react-query';
 
 export const useSubmitQuizFormMutation = () =>

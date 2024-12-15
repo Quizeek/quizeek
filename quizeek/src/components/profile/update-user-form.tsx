@@ -1,7 +1,7 @@
 'use client';
 
 import { UpdateUser, updateUserSchema } from '@/db/schema/user';
-import { useUpdateUserMutation } from '@/hooks/user';
+import { useUpdateUserMutation } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SessionContextValue } from 'next-auth/react';

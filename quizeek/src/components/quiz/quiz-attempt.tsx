@@ -9,7 +9,7 @@ import {
   QuizAttemptWithAnswers,
 } from '@/db/schema/quiz-attempt';
 import { useSaveQuizAttemptMutation } from '@/hooks';
-import { useQuizTimer } from '@/hooks/quiz-timer';
+import { useQuizTimer } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { getOtherQuizAttempts } from '@/db/queries';
 import { QuizWithUser } from '@/db/schema/quiz';
-import { toLocalDateTimeString } from '@/utils/date';
+import { toLocalDateTimeString } from '@/utils';
 import { CircleUserRound } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';

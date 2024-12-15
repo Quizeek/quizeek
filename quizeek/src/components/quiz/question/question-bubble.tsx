@@ -1,6 +1,6 @@
 import { CarouselApi } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
-import { QuestionBubbleType } from '@/models/question';
+import { QuestionBubbleType } from '@/models';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Dispatch, SetStateAction } from 'react';

@@ -1,5 +1,5 @@
 import { CarouselApi } from '@/components/ui/carousel';
-import { QuestionBubbleType } from '@/models/question';
+import { QuestionBubbleType } from '@/models';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { Dispatch, PropsWithChildren, SetStateAction } from 'react';

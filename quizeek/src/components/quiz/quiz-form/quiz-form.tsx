@@ -13,9 +13,8 @@ import {
   QuizForm as QuizFormData,
   quizFormSchema,
 } from '@/db/schema/quiz';
-import { useSubmitQuizFormMutation } from '@/hooks/quiz';
-import { toQuizDuration } from '@/utils';
-import { useUploadThing } from '@/utils/uploadthing';
+import { useSubmitQuizFormMutation } from '@/hooks';
+import { toQuizDuration, useUploadThing } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { redirect } from 'next/navigation';
 import React, { useState } from 'react';
