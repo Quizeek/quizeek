@@ -8,6 +8,7 @@ import { quizes, QuizForm, quizFormSchema } from '@/db/schema/quiz';
 import { InvalidDataError, InvalidSessionError } from '@/models';
 import { handleError } from '@/utils';
 import { and, eq, inArray } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
 export const submitQuizFormAction = async (body: QuizForm, id?: string) => {
   try {
@@ -114,6 +115,8 @@ export const submitQuizFormAction = async (body: QuizForm, id?: string) => {
         ) {
           throw new InvalidDataError('Could not create choices');
         }
+
+        revalidatePath('/');
 
         return newQuiz[0].id;
       } catch (e) {

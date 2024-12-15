@@ -8,6 +8,7 @@ import { quizes } from '@/db/schema/quiz';
 import { InvalidDataError, InvalidSessionError } from '@/models';
 import { handleError } from '@/utils';
 import { and, eq, inArray } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
 export const deleteQuizAction = async (id: string) => {
   try {
@@ -40,6 +41,8 @@ export const deleteQuizAction = async (id: string) => {
         if (deletedQuiz.length !== 1) {
           throw new InvalidDataError('Quiz not found');
         }
+
+        revalidatePath('/auth/profile');
       } catch (e) {
         tx.rollback();
         throw e;
