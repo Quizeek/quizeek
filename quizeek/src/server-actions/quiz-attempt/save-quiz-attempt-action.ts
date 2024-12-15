@@ -4,7 +4,7 @@ import { db } from '@/db';
 import { answers } from '@/db/schema/answer';
 import { choices } from '@/db/schema/choice';
 import { quizAttempts } from '@/db/schema/quiz-attempt';
-import { handleServerActionError } from '@/utils';
+import { handleError } from '@/utils';
 import { eq, inArray } from 'drizzle-orm';
 import { z } from 'zod';
 
@@ -38,6 +38,6 @@ export const saveQuizAttemptAction = async (
       choicesData.reduce((sum, choice) => sum + choice.points, 0)
     );
   } catch (error) {
-    return handleServerActionError(error);
+    return handleError(error);
   }
 };

@@ -14,6 +14,7 @@ export const useQuizTimer = ({
   const [isTimerUp, setIsTimerUp] = useState(false);
 
   useEffect(() => {
+    // adding 1hr because of drizzle sqlite current_timestamp bug
     const startDateTime = DateTime.fromSQL(attemptTimestamp).plus(
       Duration.fromObject({
         hour: 1,

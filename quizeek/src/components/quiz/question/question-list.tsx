@@ -44,7 +44,6 @@ export const QuestionList = ({
     >
       <QuestionBubbleList
         questions={questions}
-        setQuestions={() => {}}
         carouselApi={carouselApi}
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}

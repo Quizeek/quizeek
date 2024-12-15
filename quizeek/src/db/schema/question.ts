@@ -3,7 +3,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
 import { z } from 'zod';
 
-import { choices, PublicChoice } from './choice';
+import { Choice, choices, PublicChoice } from './choice';
 import { quizes } from './quiz';
 
 export const questionType = z.enum(['single_choice', 'multiple_choice']);
@@ -28,4 +28,5 @@ export const questionsRelations = relations(questions, ({ one, many }) => ({
 
 export type Question = InferSelectModel<typeof questions>;
 
+export type QuestionWithChoices = Question & { choices: Choice[] };
 export type QuestionWithPublicChoices = Question & { choices: PublicChoice[] };

@@ -1,7 +1,7 @@
 'use client';
 
 import { Form } from '@/components/ui/form';
-import { QuizWithQuestions } from '@/db/schema/quiz';
+import { QuizWithPublicQuestions } from '@/db/schema/quiz';
 import {
   QuizAttemptResponse,
   quizAttemptResponseSchema,
@@ -19,7 +19,7 @@ import { QuizAttemptSaveDialog } from './attempt/quiz-attempt-save-dialog';
 import { QuestionList } from './question/question-list';
 
 type QuizAttemptProps = {
-  quiz: QuizWithQuestions;
+  quiz: QuizWithPublicQuestions;
   attempt: QuizAttemptType;
 };
 

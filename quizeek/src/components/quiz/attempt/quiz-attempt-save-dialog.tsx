@@ -29,7 +29,7 @@ export const QuizAttemptSaveDialog = ({
           <DialogTitle>Quiz Submission</DialogTitle>
           <DialogDescription className="flex flex-col gap-2">
             <span>
-              Are you sure you want to finish the quiz ans submit your answers?
+              Are you sure you want to finish the quiz and submit your answers?
             </span>
             <ActionButton
               type="submit"

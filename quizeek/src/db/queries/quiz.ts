@@ -9,7 +9,7 @@ import { db } from '..';
 import {
   EditableQuiz,
   quizes,
-  QuizWithQuestions,
+  QuizWithPublicQuestions,
   QuizWithUser,
 } from '../schema/quiz';
 import { quizAttempts } from '../schema/quiz-attempt';
@@ -53,7 +53,7 @@ export const getQuizById = async (
 
 export const getQuizWithQuestionsById = async (
   quizId: string
-): Promise<QuizWithQuestions | undefined> => {
+): Promise<QuizWithPublicQuestions | undefined> => {
   try {
     const quiz = await db.query.quizes.findFirst({
       where: eq(quizes.id, quizId),
@@ -64,8 +64,7 @@ export const getQuizWithQuestionsById = async (
               columns: {
                 id: true,
                 text: true,
-                isCorrect: false,
-                points: false,
+                questionId: true,
               },
             },
           },

@@ -8,7 +8,7 @@ import { QuestionBubble } from './question-bubble';
 
 type QuestionBubbleListProps<TQuestion extends QuestionBubbleType> = {
   questions: TQuestion[];
-  setQuestions: Dispatch<SetStateAction<TQuestion[]>>;
+  setQuestions?: Dispatch<SetStateAction<TQuestion[]>>;
   currentQuestion: string;
   setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
@@ -43,7 +43,7 @@ export const QuestionBubbleList = <TQuestion extends QuestionBubbleType>({
       return;
     }
 
-    setQuestions((questions) => {
+    setQuestions?.((questions) => {
       const oldIdx = questions.findIndex((q) => q.id === e.active.id);
       const newIdx = questions.findIndex((q) => q.id === e.over?.id);
 
