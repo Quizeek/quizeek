@@ -6,10 +6,12 @@ import { handleError } from '@/utils';
 import { and, eq, getTableColumns, like, or } from 'drizzle-orm';
 
 import { db } from '..';
+import { Choice, PublicChoice } from '../schema/choice';
 import {
   EditableQuiz,
   quizes,
   QuizWithPublicQuestions,
+  QuizWithQuestions,
   QuizWithUser,
 } from '../schema/quiz';
 import { quizAttempts } from '../schema/quiz-attempt';
@@ -51,7 +53,7 @@ export const getQuizById = async (
   }
 };
 
-export const getQuizWithQuestionsById = async (
+export const getQuizWithPublicQuestionsById = async (
   quizId: string
 ): Promise<QuizWithPublicQuestions | undefined> => {
   try {
@@ -72,7 +74,50 @@ export const getQuizWithQuestionsById = async (
       },
     });
 
-    return quiz;
+    return !quiz
+      ? quiz
+      : {
+          ...quiz,
+          questions: quiz.questions.map((q) => ({
+            ...q,
+            choices: q.choices.map((c) => ({
+              ...c,
+              type: 'public',
+            })) as PublicChoice[],
+          })),
+        };
+  } catch {
+    throw new Error('Failed to load quiz.');
+  }
+};
+
+export const getQuizWithQuestionsById = async (
+  quizId: string
+): Promise<QuizWithQuestions | undefined> => {
+  try {
+    const quiz = await db.query.quizes.findFirst({
+      where: eq(quizes.id, quizId),
+      with: {
+        questions: {
+          with: {
+            choices: true,
+          },
+        },
+      },
+    });
+
+    return !quiz
+      ? quiz
+      : {
+          ...quiz,
+          questions: quiz.questions.map((q) => ({
+            ...q,
+            choices: q.choices.map((c) => ({
+              ...c,
+              type: 'private',
+            })) as Choice[],
+          })),
+        };
   } catch {
     throw new Error('Failed to load quiz.');
   }
@@ -158,7 +203,16 @@ export const getEditableQuiz = async (id: string): Promise<EditableQuiz> => {
       throw new InvalidSessionError('User is not creator of the quiz');
     }
 
-    return dbQuiz;
+    return {
+      ...dbQuiz,
+      questions: dbQuiz.questions.map((q) => ({
+        ...q,
+        choices: q.choices.map((c) => ({
+          ...c,
+          type: 'private',
+        })) as Choice[],
+      })),
+    };
   } catch (error) {
     throw handleError(error);
   }

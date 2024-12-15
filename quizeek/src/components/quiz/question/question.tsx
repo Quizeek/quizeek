@@ -1,15 +1,22 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { type QuestionWithPublicChoices } from '@/db/schema/question';
+import {
+  QuestionWithChoices,
+  type QuestionWithPublicChoices,
+} from '@/db/schema/question';
+import {
+  type QuizAttempt as QuizAttemptType,
+  QuizAttemptWithAnswers,
+} from '@/db/schema/quiz-attempt';
 
 import { MultiChoiceList } from './choice/multi-choice-list';
 import { SingleChoiceList } from './choice/single-choice-list';
 import { QuestionDescription } from './question-description';
-
 type QuestionProps = {
-  question: QuestionWithPublicChoices;
+  question: QuestionWithPublicChoices | QuestionWithChoices;
+  attempt: QuizAttemptType | QuizAttemptWithAnswers;
 };
 
-export const Question = ({ question }: QuestionProps) => {
+export const Question = ({ question, attempt }: QuestionProps) => {
   return (
     <div className="p-1 h-full">
       <Card className="h-full">
@@ -21,12 +28,14 @@ export const Question = ({ question }: QuestionProps) => {
             <MultiChoiceList
               questionId={question.id}
               choices={question.choices}
+              attempt={attempt}
             />
           )}
           {question.type === 'single_choice' && (
             <SingleChoiceList
               questionId={question.id}
               choices={question.choices}
+              attempt={attempt}
             />
           )}
         </CardContent>

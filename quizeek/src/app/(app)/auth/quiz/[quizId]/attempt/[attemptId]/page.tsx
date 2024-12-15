@@ -1,5 +1,8 @@
 import { QuizAttempt } from '@/components/quiz/quiz-attempt';
-import { getQuizAttemptById, getQuizWithQuestionsById } from '@/db/queries';
+import {
+  getQuizAttemptById,
+  getQuizWithPublicQuestionsById,
+} from '@/db/queries';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 
@@ -17,7 +20,7 @@ const Page = async ({ params }: AttemptPageProps) => {
     notFound();
   }
 
-  const quiz = await getQuizWithQuestionsById(routeParams.quizId);
+  const quiz = await getQuizWithPublicQuestionsById(routeParams.quizId);
   const attempt = await getQuizAttemptById(routeParams.attemptId);
 
   if (!quiz || !attempt) {

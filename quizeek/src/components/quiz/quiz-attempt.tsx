@@ -1,11 +1,12 @@
 'use client';
 
 import { Form } from '@/components/ui/form';
-import { QuizWithPublicQuestions } from '@/db/schema/quiz';
+import { QuizWithPublicQuestions, QuizWithQuestions } from '@/db/schema/quiz';
 import {
   QuizAttemptResponse,
   quizAttemptResponseSchema,
   type QuizAttempt as QuizAttemptType,
+  QuizAttemptWithAnswers,
 } from '@/db/schema/quiz-attempt';
 import { useSaveQuizAttemptMutation } from '@/hooks';
 import { useQuizTimer } from '@/hooks/quiz-timer';
@@ -19,8 +20,8 @@ import { QuizAttemptSaveDialog } from './attempt/quiz-attempt-save-dialog';
 import { QuestionList } from './question/question-list';
 
 type QuizAttemptProps = {
-  quiz: QuizWithPublicQuestions;
-  attempt: QuizAttemptType;
+  quiz: QuizWithPublicQuestions | QuizWithQuestions;
+  attempt: QuizAttemptType | QuizAttemptWithAnswers;
 };
 
 export const QuizAttempt = ({ quiz, attempt }: QuizAttemptProps) => {
@@ -32,15 +33,31 @@ export const QuizAttempt = ({ quiz, attempt }: QuizAttemptProps) => {
     attemptTimestamp: attempt.timestamp,
   });
 
+  const getDefaultValues = () => {
+    if (attempt.type === 'base') {
+      return {
+        ...quiz.questions.reduce((acc, question) => {
+          acc[question.id] = [];
+          return acc;
+        }, {} as QuizAttemptResponse),
+      };
+    }
+
+    return {
+      ...attempt.answers.reduce((acc, answer) => {
+        acc[answer.choice.questionId] = [
+          ...(acc[answer.choice.questionId] ?? []),
+          answer.choiceId,
+        ];
+        return acc;
+      }, {} as QuizAttemptResponse),
+    };
+  };
+
   const formRef = useRef<HTMLFormElement | null>(null);
   const form = useForm<QuizAttemptResponse>({
     resolver: zodResolver(quizAttemptResponseSchema),
-    defaultValues: {
-      ...quiz.questions.reduce((acc, question) => {
-        acc[question.id] = [];
-        return acc;
-      }, {} as QuizAttemptResponse),
-    },
+    defaultValues: getDefaultValues(),
   });
 
   const onSubmit = async (data: QuizAttemptResponse): Promise<void> => {
@@ -59,25 +76,30 @@ export const QuizAttempt = ({ quiz, attempt }: QuizAttemptProps) => {
   };
 
   useEffect(() => {
-    if (isTimerUp) {
+    if (isTimerUp && attempt.type === 'base') {
       formRef.current?.requestSubmit();
     }
-  }, [isTimerUp]);
+  }, [isTimerUp, attempt]);
 
   return (
     <>
-      <h2 className="w-full text-center font-bold">{timer}</h2>
+      <h2 className="w-full text-center font-bold">
+        {attempt.type === 'base' ? timer : `${attempt.score}pts`}
+      </h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
           <QuestionList
+            attempt={attempt}
             questions={quiz.questions}
             className="mt-10"
             draggableBubbles={false}
           />
-          <QuizAttemptSaveDialog
-            onConfirm={() => formRef.current?.requestSubmit()}
-            isPending={saveQuizAttempt.isPending}
-          ></QuizAttemptSaveDialog>
+          {attempt.type === 'base' && (
+            <QuizAttemptSaveDialog
+              onConfirm={() => formRef.current?.requestSubmit()}
+              isPending={saveQuizAttempt.isPending}
+            />
+          )}
         </form>
       </Form>
     </>
