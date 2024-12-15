@@ -189,7 +189,8 @@ export const getEditableQuiz = async (id: string): Promise<EditableQuiz> => {
     const dbQuiz = await db.query.quizes.findFirst({
       where: and(
         eq(quizes.id, id),
-        eq(quizes.createdBy, session?.user.id ?? '')
+        eq(quizes.createdBy, session?.user.id ?? ''),
+        eq(quizes.isActive, false)
       ),
       with: {
         questions: {

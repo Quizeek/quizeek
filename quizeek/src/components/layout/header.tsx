@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 flex h-16 w-full items-center justify-between border-b px-4 md:px-32 bg-background z-50">
       <Link className="overflow-hidden" href="/">
-        <Logo className="h-12 w-full rounded-md" />
+        <Logo className="h-12 w-auto rounded-md" />
       </Link>
 
       <div className="flex flex-row items-center gap-3">
