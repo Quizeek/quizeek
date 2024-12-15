@@ -45,6 +45,7 @@ export const quizFormSchema = z.object({
         /^[0-9]?h [0-5][0-9]m [0-5][0-9]s$/.test(duration),
       'Duration must be fully entered and can not be zero'
     ),
+  imageUrl: z.string().url('Invalid url').optional(),
   isActive: z.boolean(),
   questions: z
     .array(
