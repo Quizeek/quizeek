@@ -6,7 +6,12 @@ import { handleError } from '@/utils';
 import { and, eq, getTableColumns, like, or } from 'drizzle-orm';
 
 import { db } from '..';
-import { EditableQuiz, quizes, QuizWithUser } from '../schema/quiz';
+import {
+  EditableQuiz,
+  quizes,
+  QuizWithPublicQuestions,
+  QuizWithUser,
+} from '../schema/quiz';
 import { quizAttempts } from '../schema/quiz-attempt';
 import { users } from '../schema/user';
 
@@ -43,6 +48,33 @@ export const getQuizById = async (
     return quiz;
   } catch (error) {
     throw handleError(error);
+  }
+};
+
+export const getQuizWithQuestionsById = async (
+  quizId: string
+): Promise<QuizWithPublicQuestions | undefined> => {
+  try {
+    const quiz = await db.query.quizes.findFirst({
+      where: eq(quizes.id, quizId),
+      with: {
+        questions: {
+          with: {
+            choices: {
+              columns: {
+                id: true,
+                text: true,
+                questionId: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return quiz;
+  } catch {
+    throw new Error('Failed to load quiz.');
   }
 };
 
