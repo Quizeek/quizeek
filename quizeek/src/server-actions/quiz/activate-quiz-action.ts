@@ -3,7 +3,7 @@
 import { db } from '@/db';
 import { quizes } from '@/db/schema/quiz';
 import { InvalidDataError } from '@/models';
-import { handleServerActionError } from '@/utils';
+import { handleError } from '@/utils';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
@@ -21,6 +21,6 @@ export const activateQuizAction = async (quizId: string): Promise<void> => {
 
     revalidatePath(`/quiz/${quizId}`);
   } catch (error) {
-    handleServerActionError(error);
+    throw handleError(error);
   }
 };

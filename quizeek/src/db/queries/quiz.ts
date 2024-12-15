@@ -1,10 +1,12 @@
 'use server';
 
 import { auth } from '@/auth';
+import { InvalidSessionError } from '@/models';
+import { handleError } from '@/utils';
 import { and, eq, getTableColumns, like, or } from 'drizzle-orm';
 
 import { db } from '..';
-import { quizes, QuizWithUser } from '../schema/quiz';
+import { EditableQuiz, quizes, QuizWithUser } from '../schema/quiz';
 import { quizAttempts } from '../schema/quiz-attempt';
 import { users } from '../schema/user';
 
@@ -24,8 +26,8 @@ export const getActiveQuizes = async (
     });
 
     return dbQuizes;
-  } catch {
-    throw new Error('Failed to load quizes.');
+  } catch (error) {
+    throw handleError(error);
   }
 };
 
@@ -39,8 +41,8 @@ export const getQuizById = async (
     });
 
     return quiz;
-  } catch {
-    throw new Error('Failed to load quiz.');
+  } catch (error) {
+    throw handleError(error);
   }
 };
 
@@ -64,8 +66,8 @@ export const getMyQuizes = async (
     });
 
     return dbQuizes;
-  } catch {
-    throw new Error('Failed to load quizes.');
+  } catch (error) {
+    throw handleError(error);
   }
 };
 
@@ -97,7 +99,35 @@ export const getTakenQuizes = async (
       );
 
     return dbQuizes;
-  } catch {
-    throw new Error('Failed to load quizes.');
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
+export const getEditableQuiz = async (id: string): Promise<EditableQuiz> => {
+  try {
+    const session = await auth();
+
+    const dbQuiz = await db.query.quizes.findFirst({
+      where: and(
+        eq(quizes.id, id),
+        eq(quizes.createdBy, session?.user.id ?? '')
+      ),
+      with: {
+        questions: {
+          with: {
+            choices: true,
+          },
+        },
+      },
+    });
+
+    if (!dbQuiz) {
+      throw new InvalidSessionError('User is not creator of the quiz');
+    }
+
+    return dbQuiz;
+  } catch (error) {
+    throw handleError(error);
   }
 };

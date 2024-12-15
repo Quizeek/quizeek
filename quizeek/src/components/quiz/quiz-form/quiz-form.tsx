@@ -8,8 +8,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Form } from '@/components/ui/form';
-import { QuizForm as QuizFormData, quizFormSchema } from '@/db/schema/quiz';
+import {
+  EditableQuiz,
+  QuizForm as QuizFormData,
+  quizFormSchema,
+} from '@/db/schema/quiz';
 import { useSubmitQuizFormMutation } from '@/hooks/quiz';
+import { toQuizDuration } from '@/utils';
 import { useUploadThing } from '@/utils/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { redirect } from 'next/navigation';
@@ -20,15 +25,33 @@ import { toast } from 'sonner';
 import QuizInfoFormPart from './quiz-info-form-part';
 import QuizQuestionsFormPart from './quiz-questions-form-part';
 
-const QuizForm = () => {
+type QuizFormProps = {
+  editableQuiz?: EditableQuiz;
+};
+
+const QuizForm = ({ editableQuiz }: QuizFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<QuizFormData>({
     resolver: zodResolver(quizFormSchema),
     defaultValues: {
-      title: '',
-      isActive: false,
-      questions: [],
+      title: editableQuiz?.title ?? '',
+      description: editableQuiz?.description ?? '',
+      duration: toQuizDuration(editableQuiz?.timeLimitSeconds),
+      isActive: editableQuiz?.isActive ?? false,
+      imageUrl: editableQuiz?.imageUrl ?? undefined,
+      questions:
+        editableQuiz?.questions.map((q) => ({
+          id: q.id,
+          text: q.text ?? '',
+          number: q.number,
+          choices: q.choices.map((c) => ({
+            id: c.id,
+            text: c.text,
+            points: c.points,
+            isCorrect: c.isCorrect,
+          })),
+        })) ?? [],
     },
   });
 
@@ -42,7 +65,7 @@ const QuizForm = () => {
 
   const onSubmit = async (data: QuizFormData) => {
     await submitQuizFormMutation.mutateAsync(
-      { data, file: files[0], startUpload },
+      { id: editableQuiz?.id, data, file: files[0], startUpload },
       {
         onSuccess: async (quizId) => {
           toast.success('Successfully submitted form');

@@ -3,7 +3,7 @@
 import { db } from '@/db';
 import { UpdateUser, updateUserSchema, users } from '@/db/schema/user';
 import { InvalidDataError } from '@/models';
-import { handleServerActionError } from '@/utils';
+import { handleError } from '@/utils';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
@@ -23,6 +23,6 @@ export const updateUserAction = async (body: UpdateUser) => {
 
     revalidatePath('/auth/profile');
   } catch (error) {
-    handleServerActionError(error);
+    throw handleError(error);
   }
 };

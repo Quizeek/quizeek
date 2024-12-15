@@ -1,18 +1,18 @@
 import { InvalidDataError, InvalidSessionError } from '@/models';
 import { ZodError } from 'zod';
 
-export const handleServerActionError = (error: unknown) => {
+export const handleError = (error: unknown) => {
   if (error instanceof InvalidDataError) {
-    throw error;
+    return error;
   }
 
   if (error instanceof InvalidSessionError) {
-    throw error;
+    return error;
   }
 
   if (error instanceof ZodError) {
-    throw new InvalidDataError(error.errors.map((e) => e.message).join(' | '));
+    return new InvalidDataError(error.errors.map((e) => e.message).join(' | '));
   }
 
-  throw new Error('Something went wrong');
+  return new Error('Something went wrong');
 };

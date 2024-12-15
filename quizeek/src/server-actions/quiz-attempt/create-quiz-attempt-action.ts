@@ -3,7 +3,7 @@
 import { auth } from '@/auth';
 import { db } from '@/db';
 import { quizAttempts } from '@/db/schema/quiz-attempt';
-import { handleServerActionError } from '@/utils';
+import { handleError } from '@/utils';
 
 export const createQuizAttemptAction = async (
   quizId: string
@@ -18,6 +18,6 @@ export const createQuizAttemptAction = async (
 
     return createdQuiz[0].id;
   } catch (error) {
-    return handleServerActionError(error);
+    throw handleError(error);
   }
 };
