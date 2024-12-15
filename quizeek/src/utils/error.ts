@@ -1,8 +1,12 @@
-import { InvalidDataError } from '@/models';
+import { InvalidDataError, InvalidSessionError } from '@/models';
 import { ZodError } from 'zod';
 
 export const handleServerActionError = (error: unknown) => {
   if (error instanceof InvalidDataError) {
+    throw error;
+  }
+
+  if (error instanceof InvalidSessionError) {
     throw error;
   }
 
