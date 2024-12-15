@@ -1,5 +1,5 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import { getMyQuizAttempts } from '@/db/queries/quiz-attempt';
+import { getMyQuizAttempts } from '@/db/queries';
 import { QuizWithUser } from '@/db/schema/quiz';
 import { toLocalDateTimeString } from '@/utils/date';
 import { SquareArrowRight } from 'lucide-react';

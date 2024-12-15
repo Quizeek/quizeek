@@ -81,7 +81,7 @@ const QuizQuestionsFormPart = () => {
     key: string,
     value: T
   ) => {
-    setQuestions(
+    setQuestions((questions) =>
       questions.map((q) =>
         q.id === questionId
           ? {
@@ -227,14 +227,20 @@ const QuizQuestionsFormPart = () => {
                               decimalScale={0}
                               placeholder="Points"
                               value={choice.points}
-                              onChange={(e) =>
+                              onChange={(e) => {
                                 updateChoice(
                                   question.id,
                                   choice.id,
                                   'points',
                                   parseInt(e.currentTarget.value)
-                                )
-                              }
+                                );
+                                updateChoice(
+                                  question.id,
+                                  choice.id,
+                                  'isCorrect',
+                                  parseInt(e.currentTarget.value) > 0
+                                );
+                              }}
                             />
                             <span className="text-destructive md:absolute md:-bottom-5">
                               {
@@ -249,7 +255,7 @@ const QuizQuestionsFormPart = () => {
                               <Switch
                                 id={`${question.id}-choice-${choice.id}-isCorrect`}
                                 name={`${question.id}-choice-${choice.id}-isCorrect`}
-                                value={choice.text}
+                                checked={choice.isCorrect}
                                 onCheckedChange={(v) =>
                                   updateChoice(
                                     question.id,

@@ -3,7 +3,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
 import { z } from 'zod';
 
-import { questions } from './question';
+import { questions, QuestionWithChoices } from './question';
 import { quizAttempts } from './quiz-attempt';
 import { User, users } from './user';
 
@@ -29,6 +29,8 @@ export const quizesRelations = relations(quizes, ({ one, many }) => ({
 export type Quiz = InferSelectModel<typeof quizes>;
 
 export type QuizWithUser = Quiz & { creator: User };
+
+export type EditableQuiz = Quiz & { questions: QuestionWithChoices[] };
 
 export const quizFormSchema = z.object({
   title: z

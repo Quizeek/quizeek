@@ -1,4 +1,5 @@
 import { auth } from '@/auth';
+import { handleError } from '@/utils';
 import { and, eq, getTableColumns, lt, ne, sql } from 'drizzle-orm';
 
 import { db } from '..';
@@ -35,8 +36,8 @@ export const getMyQuizAttempts = async (
       .orderBy(sql`${quizAttempts.timestamp} desc`);
 
     return myQuizAttempts;
-  } catch {
-    throw new Error('Failed to load quiz attempts.');
+  } catch (error) {
+    throw handleError(error);
   }
 };
 
@@ -67,7 +68,7 @@ export const getOtherQuizAttempts = async (
       .orderBy(sql`${quizAttempts.timestamp} desc`);
 
     return otherQuizAttempts;
-  } catch {
-    throw new Error('Failed to load quiz attempts.');
+  } catch (error) {
+    throw handleError(error);
   }
 };

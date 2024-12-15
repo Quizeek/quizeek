@@ -1,5 +1,5 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import { getOtherQuizAttempts } from '@/db/queries/quiz-attempt';
+import { getOtherQuizAttempts } from '@/db/queries';
 import { QuizWithUser } from '@/db/schema/quiz';
 import { toLocalDateTimeString } from '@/utils/date';
 import { CircleUserRound } from 'lucide-react';

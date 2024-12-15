@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 export const useSubmitQuizFormMutation = () =>
   useMutation({
     mutationFn: async ({
+      id,
       data,
       file,
       startUpload,
@@ -18,7 +19,7 @@ export const useSubmitQuizFormMutation = () =>
         }
       }
 
-      return await submitQuizFormAction(data);
+      return await submitQuizFormAction(data, id);
     },
   });
 
