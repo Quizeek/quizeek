@@ -38,12 +38,12 @@ export const FormImageDropzone = ({
 
   return (
     <>
-      <Label>Image:</Label>
+      <Label htmlFor="image">Image:</Label>
       <div
         {...getRootProps()}
         className="flex h-9 w-full items-center rounded-md border border-input px-3 py-1 text-base focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm hover:cursor-pointer"
       >
-        <Input {...getInputProps()} />
+        <Input id="image" {...getInputProps()} />
         {files.length === 0 && <span>Click or drop file here!</span>}
         {files.length !== 0 && <span>{files[0].name}</span>}
       </div>
