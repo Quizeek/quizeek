@@ -3,7 +3,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
 import { z } from 'zod';
 
-import { answers } from './answer';
+import { answers, AnswerWithChoice } from './answer';
 import { quizes } from './quiz';
 import { User, users } from './user';
 
@@ -32,7 +32,9 @@ export const quizAttemptsRelations = relations(
   })
 );
 
-export type QuizAttempt = InferSelectModel<typeof quizAttempts>;
+export type QuizAttempt = InferSelectModel<typeof quizAttempts> & {
+  type: 'base';
+};
 
 export type QuizAttemptWithUser = QuizAttempt & { user: User };
 
@@ -41,3 +43,8 @@ export const quizAttemptResponseSchema = z.record(
   z.array(z.string())
 );
 export type QuizAttemptResponse = z.infer<typeof quizAttemptResponseSchema>;
+
+export type QuizAttemptWithAnswers = Omit<QuizAttempt, 'type'> & {
+  answers: AnswerWithChoice[];
+  type: 'with_answers';
+};

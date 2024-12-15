@@ -21,7 +21,7 @@ export const QuizAttemptSaveDialog = ({
 }: QuizAttemptSaveDialogProps) => {
   return (
     <Dialog>
-      <DialogTrigger asChild className="float-right">
+      <DialogTrigger asChild className="float-right mt-2 w-full md:w-fit">
         <Button type="button">Finish</Button>
       </DialogTrigger>
       <DialogContent>

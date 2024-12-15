@@ -13,7 +13,7 @@ import {
   QuizForm as QuizFormData,
   quizFormSchema,
 } from '@/db/schema/quiz';
-import { useSubmitQuizFormMutation } from '@/hooks/quiz';
+import { useSubmitQuizFormMutation } from '@/hooks';
 import { toQuizDuration } from '@/utils';
 import { useUploadThing } from '@/utils/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod';

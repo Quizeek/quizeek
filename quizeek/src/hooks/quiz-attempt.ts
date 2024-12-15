@@ -1,7 +1,7 @@
 import {
   createQuizAttemptAction,
   saveQuizAttemptAction,
-} from '@/server-actions/quiz-attempt';
+} from '@/server-actions';
 import { useMutation } from '@tanstack/react-query';
 
 export const useCreateQuizAttemptMutation = () =>

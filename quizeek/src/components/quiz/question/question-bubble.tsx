@@ -1,6 +1,6 @@
 import { CarouselApi } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
-import { QuestionBubbleType } from '@/models/question';
+import { QuestionBubbleType } from '@/models';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Dispatch, SetStateAction } from 'react';
@@ -42,7 +42,7 @@ export const QuestionBubble = <TQuestion extends QuestionBubbleType>({
         transition,
       }}
       className={cn(
-        'rounded-full border w-6 h-6 text-center hover:bg-primary cursor-pointer overflow-x-auto text-foreground',
+        'rounded-full border w-6 h-6 text-center hover:bg-primary cursor-pointer text-foreground',
         currentQuestion === question.id && 'bg-primary dark:text-black'
       )}
       onMouseUp={onClick}
