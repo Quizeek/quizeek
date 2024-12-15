@@ -27,7 +27,7 @@ const Home = async ({ searchParams }: HomeProps) => {
         />
       </div>
 
-      <ScrollArea className="h-[calc(100vh-9.25rem)]" type="auto">
+      <ScrollArea className="h-[calc(100dvh-9.25rem)]" type="auto">
         <div className="px-1 pr-4 md:px-4 py-1">
           <QuizList
             quizes={quizes}
