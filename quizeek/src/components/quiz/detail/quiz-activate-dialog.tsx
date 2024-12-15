@@ -34,7 +34,7 @@ export const QuizActivateDialog = ({ quiz }: QuizActivateDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Activate</Button>
+        <Button className="w-20">Activate</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

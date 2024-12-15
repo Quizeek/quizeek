@@ -104,7 +104,7 @@ export const submitQuizFormAction = async (body: QuizForm, id?: string) => {
           }))
         );
 
-        const newChoices = await await tx
+        const newChoices = await tx
           .insert(choices)
           .values(choicesToCreate)
           .returning();

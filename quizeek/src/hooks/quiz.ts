@@ -1,5 +1,6 @@
 import { SubmitQuizFormMutationType } from '@/models';
 import { activateQuizAction, submitQuizFormAction } from '@/server-actions';
+import { deleteQuizAction } from '@/server-actions/quiz/delete-quiz-action';
 import { useMutation } from '@tanstack/react-query';
 
 export const useSubmitQuizFormMutation = () =>
@@ -26,4 +27,9 @@ export const useSubmitQuizFormMutation = () =>
 export const useActivateQuizMutation = () =>
   useMutation({
     mutationFn: activateQuizAction,
+  });
+
+export const useDeleteQuizMutation = () =>
+  useMutation({
+    mutationFn: deleteQuizAction,
   });
