@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { handleError } from '@/utils';
-import { and, eq, getTableColumns, lt, ne, sql } from 'drizzle-orm';
+import { and, desc, eq, getTableColumns, lt, ne, sql } from 'drizzle-orm';
 
 import { db } from '..';
 import { quizes } from '../schema/quiz';
@@ -33,7 +33,7 @@ export const getMyQuizAttempts = async (
           )
         )
       )
-      .orderBy(sql`${quizAttempts.timestamp} desc`);
+      .orderBy(desc(quizAttempts.timestamp));
 
     return myQuizAttempts;
   } catch (error) {

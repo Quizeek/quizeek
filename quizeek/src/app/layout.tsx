@@ -19,8 +19,15 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Quizeek',
-  description: 'Best app to quizee',
+  title: 'Quizeek App',
+  description: 'A platform to create and take quizes.',
+  keywords: ['quiz', 'online quiz', 'create quiz', 'quizeek'],
+  openGraph: {
+    title: 'Quizeek App',
+    description: 'Create and take quizes online.',
+    url: 'https://quizeek.vercel.app/',
+    type: 'website',
+  },
 };
 
 const RootLayout = ({
