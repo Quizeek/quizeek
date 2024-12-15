@@ -3,6 +3,7 @@ import { InvalidSessionError } from '@/models';
 import { handleError } from '@/utils';
 import {
   and,
+  desc,
   eq,
   getTableColumns,
   isNotNull,
@@ -48,7 +49,7 @@ export const getMyQuizAttempts = async (
           )
         )
       )
-      .orderBy(sql`${quizAttempts.timestamp} desc`);
+      .orderBy(desc(quizAttempts.timestamp));
 
     // adding 1hr because of drizzle sqlite timestamp bug
     return myQuizAttempts.map((a) => ({

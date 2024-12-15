@@ -7,6 +7,10 @@ type PageParams = {
   }>;
 };
 
+export const metadata = {
+  title: 'Edit Quiz',
+};
+
 const Page = async ({ params }: PageParams) => {
   const editableQuiz = await getEditableQuiz((await params).quizId);
 

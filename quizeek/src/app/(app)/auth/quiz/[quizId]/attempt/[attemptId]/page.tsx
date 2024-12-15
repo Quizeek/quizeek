@@ -13,6 +13,10 @@ type AttemptPageProps = {
   }>;
 };
 
+export const metadata = {
+  title: 'Take Quiz',
+};
+
 const Page = async ({ params }: AttemptPageProps) => {
   const routeParams = await params;
 

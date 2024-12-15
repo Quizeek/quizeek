@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://quizeek.vercel.app/sitemap.xml

@@ -12,6 +12,10 @@ type PageProps = {
   }>;
 };
 
+export const metadata = {
+  title: 'View Results',
+};
+
 const Page = async ({ params }: PageProps) => {
   const routeParams = await params;
 
