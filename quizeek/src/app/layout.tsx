@@ -19,7 +19,10 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Quizeek App',
+  title: {
+    template: '%s | Quizeek App',
+    default: 'Quizeek App',
+  },
   description: 'A platform to create and take quizes.',
   keywords: ['quiz', 'online quiz', 'create quiz', 'quizeek'],
   openGraph: {

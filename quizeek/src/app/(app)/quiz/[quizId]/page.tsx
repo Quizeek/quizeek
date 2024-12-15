@@ -13,10 +13,10 @@ export const generateMetadata = async ({ params }: PageParams) => {
   const quizId = (await params)?.quizId;
   const quiz = await getQuizById(quizId);
   return {
-    title: `Quiz ${quiz?.title} | Quizeek App`,
+    title: `Quiz ${quiz?.title}`,
     description: `Attempt quiz ${quiz?.title} and test your knowledge.`,
     openGraph: {
-      title: `Quiz ${quiz?.title} | Quizeek App`,
+      title: `Quiz ${quiz?.title}`,
       description: `Attempt quiz ${quiz?.title} and test your knowledge.`,
       url: `https://quizeek.vercel.app/quiz/${quizId}`,
       type: 'website',

@@ -10,12 +10,12 @@ type PageProps = {
 };
 
 export const metadata = {
-  title: 'Your Profile | Quizeek App',
+  title: 'Your Profile',
   description:
     'View and manage your profile on Quizeek App. Update your information and track your quizes.',
   keywords: ['profile', 'user profile', 'quizeek app', 'account settings'],
   openGraph: {
-    title: 'Your Profile | Quizeek App',
+    title: 'Your Profile',
     description:
       'View and manage your profile on Quiz App. Update your information and track your quizes.',
     url: 'https://quizeek.vercel.app/auth/profile',
