@@ -1,16 +1,21 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
 import { QuizWithQuestions } from '@/db/schema/quiz';
-import { type QuizAttempt as QuizAttemptType } from '@/db/schema/quiz-attempt';
+import {
+  QuizAttemptResponse,
+  quizAttemptResponseSchema,
+  type QuizAttempt as QuizAttemptType,
+} from '@/db/schema/quiz-attempt';
+import { useSaveQuizAttemptMutation } from '@/hooks';
+import { useQuizTimer } from '@/hooks/quiz-timer';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DateTime, Duration } from 'luxon';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { toast } from 'sonner';
 
-import { Button } from '../ui/button';
-import { Form } from '../ui/form';
 import { QuestionList } from './question/question-list';
 
 type QuizAttemptProps = {
@@ -19,82 +24,57 @@ type QuizAttemptProps = {
 };
 
 export const QuizAttempt = ({ quiz, attempt }: QuizAttemptProps) => {
-  attempt.timestamp = DateTime.now().toSQL();
-
   const router = useRouter();
+  const saveQuizAttempt = useSaveQuizAttemptMutation();
 
-  const questionResponseSchema = z.record(z.string(), z.array(z.string()));
+  const { timer, isTimerUp } = useQuizTimer({
+    quizTimeLimitSeconds: quiz.timeLimitSeconds,
+    attemptTimestamp: attempt.timestamp,
+  });
 
-  type FormType = z.infer<typeof questionResponseSchema>;
-
-  const form = useForm<FormType>({
-    resolver: zodResolver(questionResponseSchema),
+  const formRef = useRef<HTMLFormElement>(null);
+  const form = useForm<QuizAttemptResponse>({
+    resolver: zodResolver(quizAttemptResponseSchema),
     defaultValues: {
       ...quiz.questions.reduce((acc, question) => {
         acc[question.id] = [];
         return acc;
-      }, {} as FormType),
+      }, {} as QuizAttemptResponse),
     },
   });
 
-  const [timer, setTimer] = useState('');
-  const [isTimerUp, setIsTimerUp] = useState(false);
+  const onSubmit = async (data: QuizAttemptResponse): Promise<void> => {
+    const choices = Object.keys(data).flatMap((key) => data[key]);
+    await saveQuizAttempt.mutateAsync(
+      { quizIdAttemptId: attempt.id, choices },
+      {
+        onSuccess: () => {
+          toast.success('Your responses were successfully saved.');
+          router.push(`/auth/quiz/${quiz.id}/view/${attempt.id}`);
+        },
+        onError: () =>
+          toast.error('Something went wrong while saving your responses.'),
+      }
+    );
+  };
 
   useEffect(() => {
     if (isTimerUp) {
-      router.push(`/auth/quiz/${quiz.id}/view/${attempt.id}`);
+      formRef.current?.requestSubmit();
     }
-  }, [isTimerUp, quiz.id, attempt.id, router]);
-
-  useEffect(() => {
-    const startDateTime = DateTime.fromSQL(attempt.timestamp);
-    const endDateTime = startDateTime.plus(
-      Duration.fromObject({ seconds: quiz.timeLimitSeconds })
-    );
-
-    const intervalId = setInterval(() => {
-      const currentDateTime = DateTime.now();
-      const timeleft = endDateTime.diff(currentDateTime, [
-        'hours',
-        'minutes',
-        'seconds',
-      ]);
-
-      console.log('timer');
-
-      if (timeleft.seconds <= 0) {
-        setTimer("Time's up!");
-        setIsTimerUp(true);
-        clearInterval(intervalId);
-        return;
-      }
-
-      // Format the duration (remove 0h and 0m)
-      const formattedTimer = timeleft
-        .toFormat("h'h' m'm' s's'")
-        .replace(/^0h/, '')
-        .replace(/\s0m/, '');
-
-      setTimer(formattedTimer);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onSubmit = (data: any): void => {
-    // TODO
-    console.log(form);
-    console.log(data);
-  };
+  }, [isTimerUp]);
 
   return (
     <>
-      <h2 className="w-full text-end font-bold">{timer}</h2>
+      <h2 className="w-full text-center font-bold">{timer}</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <QuestionList questions={quiz.questions} className="mt-10" />
-          <Button type="submit" className="mt-4 float-end">
+        <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
+          <QuestionList
+            questions={quiz.questions}
+            className="mt-10"
+            draggable={false}
+          />
+          <Button type="submit" className="float-end mt-4">
             Finish
           </Button>
         </form>

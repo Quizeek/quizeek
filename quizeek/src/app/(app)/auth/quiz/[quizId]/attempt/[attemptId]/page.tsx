@@ -1,7 +1,6 @@
 import { QuizAttempt } from '@/components/quiz/quiz-attempt';
-import { getQuizWithQuestionsById } from '@/db/queries';
-import { createQuizAttempt } from '@/db/queries/quiz-attempt';
-import { notFound } from 'next/navigation';
+import { getQuizAttemptById, getQuizWithQuestionsById } from '@/db/queries';
+import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 
 type AttemptPageProps = {
@@ -12,26 +11,6 @@ type AttemptPageProps = {
 };
 
 const Page = async ({ params }: AttemptPageProps) => {
-  //   // TODO: replace with db call
-  //   const questions = Array.from(
-  //     { length: 5 },
-  //     (_, i) =>
-  //       ({
-  //         id: `random-uuid${i + 1}`,
-  //         quizId: `random-quiz-uuid${i + 1}`,
-  //         text: `Question text${i + 1}`,
-  //         number: i + 1,
-  //         type: i % 2 === 0 ? 'single_choice' : 'multiple_choice',
-  //         choices: Array.from({ length: 4 }, (_, j) => ({
-  //           id: `random-choice-uuid${i}${j + 1}`,
-  //           isCorrect: j === 2,
-  //           points: j === 2 ? 1 : 0,
-  //           questionId: `random-uuid${i + 1}`,
-  //           text: `Choice number ${j + 1}`,
-  //         })),
-  //       }) as QuestionWithChoices
-  //   );
-
   const routeParams = await params;
 
   if (!routeParams?.quizId || !routeParams.attemptId) {
@@ -39,13 +18,16 @@ const Page = async ({ params }: AttemptPageProps) => {
   }
 
   const quiz = await getQuizWithQuestionsById(routeParams.quizId);
-  const attempt = await createQuizAttempt(routeParams.quizId);
+  const attempt = await getQuizAttemptById(routeParams.attemptId);
 
   if (!quiz || !attempt) {
     return notFound();
   }
 
-  //   quiz.questions = questions;
+  if (attempt.score !== null) {
+    // attempt already submitted
+    redirect(`/auth/quiz/${quiz.id}/view/${attempt.id}`);
+  }
 
   return (
     <>

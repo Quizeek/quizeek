@@ -1,11 +1,11 @@
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Choice } from '@/db/schema/choice';
+import { Choice, PublicChoice } from '@/db/schema/choice';
 
 import { MultiChoice } from './multi-choice';
 
 export type MultiChoiceListProps = {
   questionId: string;
-  choices: Choice[];
+  choices: (Choice | PublicChoice)[];
 };
 
 export const MultiChoiceList = ({

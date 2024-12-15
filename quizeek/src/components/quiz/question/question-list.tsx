@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { type QuestionWithChoices } from '@/db/schema/question';
+import { type QuestionWithPublicChoices } from '@/db/schema/question';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
@@ -16,11 +16,16 @@ import { Question as QuestionComponent } from './question';
 import { QuestionBubbleList } from './question-bubble-list';
 
 export type QuestionListProps = {
-  questions: QuestionWithChoices[];
+  questions: QuestionWithPublicChoices[];
+  draggable: boolean;
   className?: string;
 };
 
-export const QuestionList = ({ questions, className }: QuestionListProps) => {
+export const QuestionList = ({
+  questions,
+  draggable,
+  className,
+}: QuestionListProps) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentQuestion, setCurrentQuestion] = useState<string>(
     questions.at(0)?.id ?? ''
@@ -30,7 +35,7 @@ export const QuestionList = ({ questions, className }: QuestionListProps) => {
     <Carousel
       setApi={setCarouselApi}
       orientation="horizontal"
-      className={cn('mt-8 w-full mx-auto', className)}
+      className={cn('mt-8 w-full mx-auto basis-24', className)}
       opts={{
         inViewThreshold: 0.5,
         watchDrag: false,
@@ -43,6 +48,7 @@ export const QuestionList = ({ questions, className }: QuestionListProps) => {
         carouselApi={carouselApi}
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
+        draggable={draggable}
       />
       <CarouselContent>
         {questions.map((question) => (

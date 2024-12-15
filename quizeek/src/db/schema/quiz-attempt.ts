@@ -1,6 +1,7 @@
 import { InferSelectModel, relations, sql } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
+import { z } from 'zod';
 
 import { answers } from './answer';
 import { quizes } from './quiz';
@@ -34,3 +35,9 @@ export const quizAttemptsRelations = relations(
 export type QuizAttempt = InferSelectModel<typeof quizAttempts>;
 
 export type QuizAttemptWithUser = QuizAttempt & { user: User };
+
+export const quizAttemptResponseSchema = z.record(
+  z.string(),
+  z.array(z.string())
+);
+export type QuizAttemptResponse = z.infer<typeof quizAttemptResponseSchema>;

@@ -1,14 +1,14 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
-import { Choice as ChoiceType } from '@/db/schema/choice';
+import { Choice as ChoiceType, PublicChoice } from '@/db/schema/choice';
 import { useFormContext } from 'react-hook-form';
 
 import { Choice } from './choice';
 
 export type MultiChoiceProps = {
   questionId: string;
-  choice: ChoiceType;
+  choice: ChoiceType | PublicChoice;
 };
 
 export const MultiChoice = ({ questionId, choice }: MultiChoiceProps) => {

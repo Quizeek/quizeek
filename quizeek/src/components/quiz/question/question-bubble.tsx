@@ -10,6 +10,7 @@ type BubbleProps<TQuestion extends QuestionBubbleType> = {
   currentQuestion: string;
   setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
+  draggable: boolean;
 };
 
 export const QuestionBubble = <TQuestion extends QuestionBubbleType>({
@@ -17,9 +18,10 @@ export const QuestionBubble = <TQuestion extends QuestionBubbleType>({
   carouselApi,
   currentQuestion,
   setCurrentQuestion,
+  draggable,
 }: BubbleProps<TQuestion>) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: question.id });
+    useSortable({ id: question.id, disabled: !draggable });
 
   const onClick = () => {
     if (!carouselApi) {

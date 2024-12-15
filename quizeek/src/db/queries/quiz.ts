@@ -60,7 +60,14 @@ export const getQuizWithQuestionsById = async (
       with: {
         questions: {
           with: {
-            choices: true,
+            choices: {
+              columns: {
+                id: true,
+                text: true,
+                isCorrect: false,
+                points: false,
+              },
+            },
           },
         },
       },

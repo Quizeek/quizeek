@@ -3,7 +3,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 as uuid } from 'uuid';
 import { z } from 'zod';
 
-import { questions, QuestionWithChoices } from './question';
+import { questions, QuestionWithPublicChoices } from './question';
 import { quizAttempts } from './quiz-attempt';
 import { User, users } from './user';
 
@@ -86,3 +86,6 @@ export const quizFormSchema = z.object({
 
 export type QuizForm = z.infer<typeof quizFormSchema>;
 export type QuizWithQuestions = Quiz & { questions: QuestionWithChoices[] };
+export type QuizWithQuestions = Quiz & {
+  questions: QuestionWithPublicChoices[];
+};

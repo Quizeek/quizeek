@@ -12,6 +12,7 @@ type QuestionBubbleListProps<TQuestion extends QuestionBubbleType> = {
   currentQuestion: string;
   setCurrentQuestion: Dispatch<SetStateAction<string>>;
   carouselApi: CarouselApi;
+  draggable: boolean;
 } & PropsWithChildren;
 
 export const QuestionBubbleList = <TQuestion extends QuestionBubbleType>({
@@ -21,6 +22,7 @@ export const QuestionBubbleList = <TQuestion extends QuestionBubbleType>({
   setCurrentQuestion,
   carouselApi,
   children,
+  draggable,
 }: QuestionBubbleListProps<TQuestion>) => {
   carouselApi?.on('slidesInView', (e) => {
     const slides = e.slidesInView();
@@ -63,6 +65,7 @@ export const QuestionBubbleList = <TQuestion extends QuestionBubbleType>({
               carouselApi={carouselApi}
               currentQuestion={currentQuestion}
               setCurrentQuestion={setCurrentQuestion}
+              draggable={draggable}
             />
           ))}
           {children}
