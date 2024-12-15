@@ -3,11 +3,12 @@
 import { auth } from '@/auth';
 import { InvalidSessionError } from '@/models';
 import { handleError } from '@/utils';
-import { and, eq, getTableColumns, like, or } from 'drizzle-orm';
+import { and, desc, eq, getTableColumns, like, or } from 'drizzle-orm';
 
 import { db } from '..';
 import {
   EditableQuiz,
+  Quiz,
   quizes,
   QuizWithPublicQuestions,
   QuizWithUser,
@@ -159,6 +160,22 @@ export const getEditableQuiz = async (id: string): Promise<EditableQuiz> => {
     }
 
     return dbQuiz;
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
+export const getTopQuizesByAttempts = async (top: number): Promise<Quiz[]> => {
+  try {
+    const topQuizes = await db
+      .select({ ...getTableColumns(quizes) })
+      .from(quizes)
+      .leftJoin(quizAttempts, eq(quizAttempts.quizId, quizes.id))
+      .groupBy(quizes.id)
+      .orderBy(desc(quizAttempts.id))
+      .limit(top);
+
+    return topQuizes;
   } catch (error) {
     throw handleError(error);
   }
