@@ -1,6 +1,16 @@
 import { auth } from '@/auth';
 import { handleError } from '@/utils';
-import { and, eq, getTableColumns, lt, ne, sql } from 'drizzle-orm';
+import {
+  and,
+  eq,
+  getTableColumns,
+  isNotNull,
+  lt,
+  ne,
+  or,
+  sql,
+} from 'drizzle-orm';
+import { DateTime, Duration } from 'luxon';
 
 import { db } from '..';
 import { quizes } from '../schema/quiz';
@@ -27,15 +37,29 @@ export const getMyQuizAttempts = async (
         and(
           eq(quizes.id, quizId),
           eq(quizAttempts.userId, session?.user.id ?? ''),
-          lt(
-            sql`DATETIME(quiz_attempt.date, '+' || quiz.time_limit_seconds || ' seconds')`,
-            sql`CURRENT_TIMESTAMP`
+          or(
+            lt(
+              sql`DATETIME(quiz_attempt.date, '+' || quiz.time_limit_seconds || ' seconds')`,
+              sql`CURRENT_TIMESTAMP`
+            ),
+            isNotNull(quizAttempts.score)
           )
         )
       )
       .orderBy(sql`${quizAttempts.timestamp} desc`);
 
-    return myQuizAttempts;
+    // adding 1hr because of drizzle sqlite timestamp bug
+    return myQuizAttempts.map((a) => ({
+      ...a,
+      timestamp:
+        DateTime.fromSQL(a.timestamp)
+          .plus(
+            Duration.fromObject({
+              hour: 1,
+            })
+          )
+          .toSQL() ?? a.timestamp,
+    }));
   } catch (error) {
     throw handleError(error);
   }
@@ -59,15 +83,29 @@ export const getOtherQuizAttempts = async (
         and(
           eq(quizes.id, quizId),
           ne(quizAttempts.userId, session?.user.id ?? ''),
-          lt(
-            sql`DATETIME(quiz_attempt.date, '+' || quiz.time_limit_seconds || ' seconds')`,
-            sql`CURRENT_TIMESTAMP`
+          or(
+            lt(
+              sql`DATETIME(quiz_attempt.date, '+' || quiz.time_limit_seconds || ' seconds')`,
+              sql`CURRENT_TIMESTAMP`
+            ),
+            isNotNull(quizAttempts.score)
           )
         )
       )
       .orderBy(sql`${quizAttempts.timestamp} desc`);
 
-    return otherQuizAttempts;
+    // adding 1hr because of drizzle sqlite timestamp bug
+    return otherQuizAttempts.map((a) => ({
+      ...a,
+      timestamp:
+        DateTime.fromSQL(a.timestamp)
+          .plus(
+            Duration.fromObject({
+              hour: 1,
+            })
+          )
+          .toSQL() ?? a.timestamp,
+    }));
   } catch (error) {
     throw handleError(error);
   }
