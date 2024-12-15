@@ -17,13 +17,13 @@ import { QuestionBubbleList } from './question-bubble-list';
 
 export type QuestionListProps = {
   questions: QuestionWithPublicChoices[];
-  draggable: boolean;
+  draggableBubbles: boolean;
   className?: string;
 };
 
 export const QuestionList = ({
   questions,
-  draggable,
+  draggableBubbles,
   className,
 }: QuestionListProps) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -48,7 +48,7 @@ export const QuestionList = ({
         carouselApi={carouselApi}
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
-        draggable={draggable}
+        draggable={draggableBubbles}
       />
       <CarouselContent>
         {questions.map((question) => (

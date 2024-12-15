@@ -1,12 +1,12 @@
 import { FormControl } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { RadioGroupItem } from '@/components/ui/radio-group';
-import { Choice as ChoiceType } from '@/db/schema/choice';
+import { Choice as ChoiceType, PublicChoice } from '@/db/schema/choice';
 
 import { Choice } from './choice';
 
 export type SingleChoiceProps = {
-  choice: ChoiceType;
+  choice: ChoiceType | PublicChoice;
 };
 
 export const SingleChoice = ({ choice }: SingleChoiceProps) => {

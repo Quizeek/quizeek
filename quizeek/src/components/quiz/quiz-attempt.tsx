@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { QuizWithQuestions } from '@/db/schema/quiz';
 import {
@@ -16,6 +15,7 @@ import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { QuizAttemptSaveDialog } from './attempt/quiz-attempt-save-dialog';
 import { QuestionList } from './question/question-list';
 
 type QuizAttemptProps = {
@@ -32,7 +32,7 @@ export const QuizAttempt = ({ quiz, attempt }: QuizAttemptProps) => {
     attemptTimestamp: attempt.timestamp,
   });
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const form = useForm<QuizAttemptResponse>({
     resolver: zodResolver(quizAttemptResponseSchema),
     defaultValues: {
@@ -72,11 +72,12 @@ export const QuizAttempt = ({ quiz, attempt }: QuizAttemptProps) => {
           <QuestionList
             questions={quiz.questions}
             className="mt-10"
-            draggable={false}
+            draggableBubbles={false}
           />
-          <Button type="submit" className="float-end mt-4">
-            Finish
-          </Button>
+          <QuizAttemptSaveDialog
+            onConfirm={() => formRef.current?.requestSubmit()}
+            isPending={saveQuizAttempt.isPending}
+          ></QuizAttemptSaveDialog>
         </form>
       </Form>
     </>

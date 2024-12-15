@@ -1,14 +1,14 @@
 import { FormControl, FormField, FormItem } from '@/components/ui/form';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Choice } from '@/db/schema/choice';
+import { Choice, PublicChoice } from '@/db/schema/choice';
 import { useFormContext } from 'react-hook-form';
 
 import { SingleChoice } from './single-choice';
 
 export type SingleChoiceListProps = {
   questionId: string;
-  choices: Choice[];
+  choices: (Choice | PublicChoice)[];
 };
 
 export const SingleChoiceList = ({
