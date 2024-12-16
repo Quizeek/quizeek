@@ -13,7 +13,7 @@ const QuizScoreBadge = ({ quiz }: QuizScoreBadgeProps) => {
       variant="secondary"
       className="flex gap-1 truncate py-1 font-thin w-fit"
     >
-      <p className="h-4 text-foreground w-fulle">
+      <p className="h-4 text-foreground">
         Max score:{' '}
         <span className="text-primary font-bold">{quiz.maxScore}</span>
       </p>
