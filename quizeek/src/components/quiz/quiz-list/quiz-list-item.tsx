@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Logo from '../../logo';
 import { Card } from '../../ui/card';
-import QuizTimeBadge from '../quiz-time-badge';
+import QuizTimeBadge from '../badge/quiz-time-badge';
 
 type QuizListItemProps = {
   quiz: QuizWithUser;

@@ -34,6 +34,8 @@ export type Quiz = InferSelectModel<typeof quizes>;
 
 export type QuizWithUser = Quiz & { creator: User };
 
+export type QuizDetail = QuizWithUser & { maxScore: number };
+
 export type EditableQuiz = Quiz & { questions: QuestionWithChoices[] };
 
 export const quizFormSchema = z.object({

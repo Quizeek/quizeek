@@ -3,7 +3,7 @@ import { toQuizDuration } from '@/utils';
 import { Clock } from 'lucide-react';
 import React from 'react';
 
-import { Badge } from '../ui/badge';
+import { Badge } from '../../ui/badge';
 
 type QuizTimeBadgeProps = {
   quiz: QuizWithUser;
