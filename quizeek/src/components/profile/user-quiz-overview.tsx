@@ -3,8 +3,8 @@ import Link from 'next/link';
 import React from 'react';
 
 import QuizAuthorBadge from '../quiz/badge/quiz-author-badge';
-import { QuizList } from '../quiz/quiz-list/quiz-list';
 import QuizStatusBadge from '../quiz/badge/quiz-status-badge';
+import { QuizList } from '../quiz/quiz-list/quiz-list';
 import { SearchInput } from '../search-input';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
