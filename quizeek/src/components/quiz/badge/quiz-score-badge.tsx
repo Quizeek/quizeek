@@ -1,7 +1,7 @@
 import { QuizDetail } from '@/db/schema/quiz';
 import React from 'react';
 
-import { Badge } from '../ui/badge';
+import { Badge } from '../../ui/badge';
 
 type QuizScoreBadgeProps = {
   quiz: QuizDetail;

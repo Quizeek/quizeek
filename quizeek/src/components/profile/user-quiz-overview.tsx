@@ -2,9 +2,9 @@ import { getMyQuizes, getTakenQuizes } from '@/db/queries';
 import Link from 'next/link';
 import React from 'react';
 
-import QuizAuthorBadge from '../quiz/quiz-author-badge';
+import QuizAuthorBadge from '../quiz/badge/quiz-author-badge';
 import { QuizList } from '../quiz/quiz-list/quiz-list';
-import QuizStatusBadge from '../quiz/quiz-status-badge';
+import QuizStatusBadge from '../quiz/badge/quiz-status-badge';
 import { SearchInput } from '../search-input';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';

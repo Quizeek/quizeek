@@ -3,7 +3,7 @@ import { CircleUserRound } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-import { Badge } from '../ui/badge';
+import { Badge } from '../../ui/badge';
 
 type QuizAuthorBadgeProps = {
   quiz: QuizWithUser;

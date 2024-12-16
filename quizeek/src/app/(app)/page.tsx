@@ -1,4 +1,4 @@
-import QuizAuthorBadge from '@/components/quiz/quiz-author-badge';
+import QuizAuthorBadge from '@/components/quiz/badge/quiz-author-badge';
 import { QuizList } from '@/components/quiz/quiz-list/quiz-list';
 import { SearchInput } from '@/components/search-input';
 import { ScrollArea } from '@/components/ui/scroll-area';

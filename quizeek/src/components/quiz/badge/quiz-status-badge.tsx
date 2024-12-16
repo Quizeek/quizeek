@@ -2,7 +2,7 @@ import { QuizWithUser } from '@/db/schema/quiz';
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-import { Badge } from '../ui/badge';
+import { Badge } from '../../ui/badge';
 
 type QuizStatusBadgeProps = {
   quiz: QuizWithUser;
