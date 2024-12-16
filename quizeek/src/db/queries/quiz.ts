@@ -10,6 +10,7 @@ import { Choice, PublicChoice } from '../schema/choice';
 import {
   EditableQuiz,
   Quiz,
+  QuizDetail,
   quizes,
   QuizWithPublicQuestions,
   QuizWithQuestions,
@@ -41,14 +42,30 @@ export const getActiveQuizes = async (
 
 export const getQuizById = async (
   quizId: string
-): Promise<QuizWithUser | undefined> => {
+): Promise<QuizDetail | undefined> => {
   try {
     const quiz = await db.query.quizes.findFirst({
       where: eq(quizes.id, quizId),
-      with: { creator: true },
+      with: {
+        creator: true,
+        questions: {
+          with: {
+            choices: true,
+          },
+        },
+      },
     });
 
-    return quiz;
+    if (!quiz) return undefined;
+
+    const maxScore = quiz.questions.reduce((totalScore, question) => {
+      const questionScore = question.choices.reduce((choiceScore, choice) => {
+        return choice.points > 0 ? choiceScore + choice.points : choiceScore;
+      }, 0);
+      return totalScore + questionScore;
+    }, 0);
+
+    return { ...quiz, maxScore };
   } catch (error) {
     throw handleError(error);
   }

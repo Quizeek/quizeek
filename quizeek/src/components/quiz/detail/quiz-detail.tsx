@@ -1,15 +1,16 @@
 import { auth } from '@/auth';
-import { QuizWithUser } from '@/db/schema/quiz';
+import { QuizDetail as QuizDetailType } from '@/db/schema/quiz';
 
 import QuizAuthorBadge from '../quiz-author-badge';
 import { QuizImage } from '../quiz-image';
+import QuizScoreBadge from '../quiz-score-badge';
 import QuizTimeBadge from '../quiz-time-badge';
 import { QuizDetailActions } from './quiz-detail-actions';
 import { QuizDetailMyAttemps } from './quiz-detail-my-attempts';
 import { QuizDetailOtherAttemps } from './quiz-detail-other-attempts';
 
 type QuizDetailProps = {
-  quiz: QuizWithUser;
+  quiz: QuizDetailType;
 };
 
 export const QuizDetail = async ({ quiz }: QuizDetailProps) => {
@@ -34,6 +35,7 @@ export const QuizDetail = async ({ quiz }: QuizDetailProps) => {
             <div className="self-end flex flex-col gap-2">
               <QuizAuthorBadge quiz={quiz} />
               <QuizTimeBadge quiz={quiz} />
+              <QuizScoreBadge quiz={quiz} />
             </div>
 
             <QuizDetailActions user={user} quiz={quiz} />
