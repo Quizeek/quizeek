@@ -55,7 +55,7 @@ const UpdateUserForm = ({ session }: UpdateUserFormProps) => {
         <div>
           <ActionButton
             className={cn(
-              'w-full md:w-20 md:mt-8',
+              'w-full md:w-20 md:mt-6',
               !form.formState.isDirty && 'hidden md:block md:invisible'
             )}
             isLoading={updateUserMutation.isPending}
