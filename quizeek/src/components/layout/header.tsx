@@ -19,7 +19,7 @@ const Header = () => {
   const session = useSession();
 
   return (
-    <header className="fixed top-0  h-16 w-full border-b px-4 md:px-32 bg-background z-50">
+    <header className="fixed top-0 h-16 w-full border-b px-4 bg-background z-50">
       <div className="w-full max-w-[1920px] mx-auto flex items-center justify-between h-full">
         <Link className="overflow-hidden" href="/">
           <Logo className="h-12 w-auto rounded-md" />
